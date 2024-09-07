@@ -1,0 +1,45 @@
+itemkey,itemvalue
+tcp/20,FTP data
+tcp/21,FTP control
+tcp/22,SSH
+tcp/23,Telnet
+tcp/25,SMTP
+tcp/49,TACACS
+udp/53,DNS
+udp/67,DHCP Discover and Request (broadcast)
+udp/68,DHCP Offer and Acknowledge (broadcast)
+udp/69,Trivial FTP
+tcp/80,HTTP
+tcp/110,POP3
+tcp/137,NetBIOS name services
+tcp/139,NetBIOS session services
+tcp/143,IMAP
+udp/161,SNMP queries
+udp/162,SNMP traps
+tcp/389,LDAP
+tcp/443,HTTPS
+tcp/445,SMB
+tcp/3389,RDP (Windows)
+udp/5004,VoIP
+FTP data,tcp/20
+FTP control,tcp/21
+SSH,tcp/22
+Telnet,tcp/23
+SMTP,tcp/25
+TACACS,tcp/49
+DNS,udp/53
+DHCP Discover and Request (broadcast),udp/67
+DHCP Offer and Acknowledge (broadcast),udp/68
+Trivial FTP,udp/69
+HTTP,tcp/80
+POP3,tcp/110
+NetBIOS name services,tcp/137
+NetBIOS session services,tcp/139
+IMAP,tcp/143
+SNMP queries,udp/161
+SNMP traps,udp/162
+LDAP,tcp/389
+HTTPS,tcp/443
+SMB,tcp/445
+RDP (Windows),tcp/3389
+VoIP,udp/5004
