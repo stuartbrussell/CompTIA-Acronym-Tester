@@ -1,12 +1,15 @@
 import csv
 import tkinter as tk
 import random
-import time
+import sys
 import webbrowser
 
 items = []
 which_item = -1
 the_item = None  # {'itemkey': '', 'itemvalue': '', 'itemlink': ''}
+
+# keep a list of 0/1 to note incorrect/correct for each item
+scores = []
 
 
 def load_items_from_csv():
@@ -62,6 +65,7 @@ def filter_items_and_show_first():
         items = list(filter(lambda item: len(
             item['itemkey']) == int(size), all_items))
     which_item = 0
+    reset_score()
     the_item = items[which_item] if len(items) > 0 else None
     show_key()
 
@@ -73,14 +77,21 @@ def show_key():
         key_entry_var.set(the_item['itemkey'])
     value_var.set('')
     cur_which_var.set(f"{which_item + 1} / {len(items)}")
+    show_score()
 
 
-def next_item(event):
+def next_item():
     global which_item, the_item
     which_item += 1
     if which_item >= len(items):
         which_item = 0
     the_item = items[which_item]
+
+    # append a score based on checkbox value
+    append_score()
+
+    correct_answer.set(True)  # new items default to correct
+
     show_key()
 
 
@@ -91,6 +102,10 @@ def prev_item():
     else:
         which_item -= 1
     the_item = items[which_item]
+
+    # remove the last score
+    pop_score()
+
     show_key()
 
 
@@ -106,6 +121,36 @@ def open_description_in_browser():
             webbrowser.open(alink)
 
 
+def show_score():
+    correct_count = sum(scores)
+    incorrect_count = which_item - correct_count
+    incorrect_count = scores.count(0)
+    score_var.set(
+        f"Correct: {correct_count}   Incorrect: {incorrect_count}")
+
+
+def append_score():
+    scores.append(correct_answer.get())
+    show_score()
+
+
+def pop_score():
+    try:
+        scores.pop()
+    except:
+        pass
+    show_score()
+
+
+def reset_score():
+    scores.clear()
+    show_score()
+
+
+def toggle_correct_answer():
+    correct_answer.set(not correct_answer.get())
+
+
 def win_evt(event):
     match event.keysym:
         case 'Right':
@@ -114,33 +159,55 @@ def win_evt(event):
             prev_item()
         case 'space':
             toggle_value()
+        case 'Escape':
+            toggle_correct_answer()
 
 
 load_items_from_csv()
 win = tk.Tk()
-win.geometry('500x200+70+800')
+win.geometry('500x200+2500+1100')
+
+# Row 0
+ac_size_var = tk.StringVar()
+tk.Entry(textvariable=ac_size_var, justify=tk.CENTER,
+         validatecommand=(win.register(validate_ac_size), '%V', '%P'), validate='all', width=2).grid(row=0, column=1)
+
 key_entry_var = tk.StringVar()
 key_entry = tk.Entry(textvariable=key_entry_var, font=(
     'Courier', '18'), justify=tk.CENTER, validatecommand=(win.register(manual_entry), '%P'), validate='key')
-key_entry.grid(column=2)
+key_entry.grid(row=0, column=2)
+cur_which_var = tk.StringVar()
+tk.Label(textvariable=cur_which_var).grid(row=0, column=3, sticky='w')
+
+# Row 1
 value_var = tk.StringVar()
 tk.Label(textvariable=value_var, justify=tk.CENTER,
-         width=55).grid(column=1, columnspan=4, row=1)
-tk.Button(text='Previous', command=prev_item).grid(column=1, row=2, sticky='e')
-tk.Button(text='Toggle', command=toggle_value).grid(column=2, row=2)
-tk.Button(text='Next', command=next_item).grid(column=3, row=2, sticky='w')
-cur_which_var = tk.StringVar()
-tk.Label(textvariable=cur_which_var).grid(column=2)
-ac_size_var = tk.StringVar()
-tk.Entry(textvariable=ac_size_var, justify=tk.CENTER,
-         validatecommand=(win.register(validate_ac_size), '%V', '%P'), validate='all').grid(column=2)
+         width=55).grid(row=1, column=1, columnspan=4)
+
+# Row 2
+tk.Button(text='Previous', command=prev_item).grid(row=2, column=1, sticky='e')
+tk.Button(text='Toggle', command=toggle_value).grid(row=2, column=2)
+tk.Button(text='Next', command=next_item).grid(row=2, column=3, sticky='w')
+
+# Row 3
+score_var = tk.StringVar()
+tk.Label(textvariable=score_var).grid(row=3, column=2)
+score_var.set('Score: ')
+correct_answer = tk.BooleanVar(value=True)
+tk.Checkbutton(text='Correct', variable=correct_answer).grid(
+    row=3, column=3, sticky='w')
+
+# Row 4
+tk.Button(text='Reload', command=restart_test).grid(
+    row=4, column=1, sticky='e')
+tk.Button(text='Browse', command=open_description_in_browser).grid(
+    row=4, column=3, sticky='w')
+
 filter_items_and_show_first()
+
+# test the longest string
 # value_var.set(
 #     'Completely Automated Turing Test To Tell Computers and Humans Apart')
-tk.Button(text='Reload', command=restart_test).grid(
-    row=6, column=1, sticky='e')
-tk.Button(text='Browse', command=open_description_in_browser).grid(
-    row=6, column=3, sticky='w')
 
 win.bind('<Key>', win_evt)
 win.mainloop()
