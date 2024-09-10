@@ -15,13 +15,12 @@ scores = []
 def load_items_from_csv():
     global all_items
     with open('A+ acronyms.csv') as acs:
-        ad = csv.DictReader(acs)
         # acronyms: [{
         #   'itemkey':'TACACS',
         #   'itemvalue': 'Terminal Access Controller Access-Control System',
         #   'itemlink': '' | 'https://en.wikipedia.org/wiki/TACACS
         # }, ...]
-        all_items = [item for item in ad]
+        all_items = [item for item in csv.DictReader(acs)]
     random.shuffle(all_items)
 
 
@@ -35,7 +34,7 @@ def toggle_value():
 
 def manual_entry(key):
     global the_item
-    if win.focus_get() == key_entry:
+    if root.focus_get() == key_entry:
         acs = list(
             filter(lambda item: item['itemkey'].upper() == key.upper(), items))
         if len(acs) > 0:
@@ -71,7 +70,7 @@ def filter_items_and_show_first():
 
 
 def show_key():
-    win.focus_set()
+    root.focus_set()
     key_entry_var.set('')
     if the_item:
         key_entry_var.set(the_item['itemkey'])
@@ -164,17 +163,17 @@ def win_evt(event):
 
 
 load_items_from_csv()
-win = tk.Tk()
-win.geometry('500x200+2500+1100')
+root = tk.Tk()
+root.geometry('500x200+2500+1100')
 
 # Row 0
 ac_size_var = tk.StringVar()
 tk.Entry(textvariable=ac_size_var, justify=tk.CENTER,
-         validatecommand=(win.register(validate_ac_size), '%V', '%P'), validate='all', width=2).grid(row=0, column=1)
+         validatecommand=(root.register(validate_ac_size), '%V', '%P'), validate='all', width=2).grid(row=0, column=1)
 
 key_entry_var = tk.StringVar()
 key_entry = tk.Entry(textvariable=key_entry_var, font=(
-    'Courier', '18'), justify=tk.CENTER, validatecommand=(win.register(manual_entry), '%P'), validate='key')
+    'Courier', '18'), justify=tk.CENTER, validatecommand=(root.register(manual_entry), '%P'), validate='key')
 key_entry.grid(row=0, column=2)
 cur_which_var = tk.StringVar()
 tk.Label(textvariable=cur_which_var).grid(row=0, column=3, sticky='w')
@@ -209,5 +208,5 @@ filter_items_and_show_first()
 # value_var.set(
 #     'Completely Automated Turing Test To Tell Computers and Humans Apart')
 
-win.bind('<Key>', win_evt)
-win.mainloop()
+root.bind('<Key>', win_evt)
+root.mainloop()
