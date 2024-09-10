@@ -24,17 +24,39 @@ def load_items_from_csv():
     random.shuffle(all_items)
 
 
-def create_length_menu(length_choice):
+def scan_items_for_acronym_lengths():
     # Scan all_items and make a list of acronym lengths
     length_options = [0]
     for item in all_items:
         length = len(item['itemkey'])
         if length not in length_options:
             length_options.append(length)
-    length_options = sorted(length_options)
-    length_menu = tk.OptionMenu(root, length_choice, *length_options,
-                                command=acronym_length_changed)
-    return length_menu
+    return sorted(length_options)
+
+
+def create_length_menu():
+    length_options = scan_items_for_acronym_lengths()
+    menu = tk.OptionMenu(root, acronym_length_choice, *length_options,
+                         command=acronym_length_changed)
+    return menu
+
+
+def update_length_menu():
+    length_options = scan_items_for_acronym_lengths()
+    menu = length_menu['menu']
+    menu.delete(0, 'end')
+
+    def notify_change(value):
+        acronym_length_choice.set(value)
+        acronym_length_changed(value)
+
+    for option in length_options:
+        menu.add_command(label=option,
+                         command=lambda value=option: notify_change(value))
+
+    # Try to keep the same choice
+    if acronym_length_choice.get() not in length_options:
+        acronym_length_choice.set(0)
 
 
 def toggle_value():
@@ -118,6 +140,7 @@ def prev_item():
 
 def restart_test():
     load_items_from_csv()
+    update_length_menu()
     filter_items_and_show_first()
 
 
@@ -179,7 +202,7 @@ root.option_add('*tearOff', False)
 
 # Row 0
 acronym_length_choice = tk.IntVar()
-length_menu = create_length_menu(acronym_length_choice)
+length_menu = create_length_menu()
 length_menu.grid(row=0, column=1)
 
 key_entry_var = tk.StringVar()
