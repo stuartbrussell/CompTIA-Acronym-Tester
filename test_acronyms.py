@@ -24,6 +24,19 @@ def load_items_from_csv():
     random.shuffle(all_items)
 
 
+def create_length_menu(length_choice):
+    # Scan all_items and make a list of acronym lengths
+    length_options = [0]
+    for item in all_items:
+        length = len(item['itemkey'])
+        if length not in length_options:
+            length_options.append(length)
+    length_options = sorted(length_options)
+    length_menu = tk.OptionMenu(root, length_choice, *length_options,
+                                command=acronym_length_changed)
+    return length_menu
+
+
 def toggle_value():
     global the_item
     if len(items) > 0 and not value_var.get():
@@ -45,24 +58,19 @@ def manual_entry(key):
     return True
 
 
-def validate_ac_size(reason, new_size):
-    global items, which_item, the_item
-    if reason == 'key':
-        return new_size.isdigit() or new_size == ''
-    elif reason in ['focusout']:
-        filter_items_and_show_first()
-    return True
+def acronym_length_changed(_new_length):
+    filter_items_and_show_first()
 
 
-# build the filtered list of items and display the first one
 def filter_items_and_show_first():
+    # build the filtered list of items and display the first one
     global items, which_item, the_item
-    size = ac_size_var.get()
-    if size == '':
+    length = acronym_length_choice.get()
+    if length == 0:
         items = list(all_items)
     else:
         items = list(filter(lambda item: len(
-            item['itemkey']) == int(size), all_items))
+            item['itemkey']) == length, all_items))
     which_item = 0
     reset_score()
     the_item = items[which_item] if len(items) > 0 else None
@@ -166,10 +174,13 @@ load_items_from_csv()
 root = tk.Tk()
 root.geometry('500x200+2500+1100')
 
+# Do this before creating any menus
+root.option_add('*tearOff', False)
+
 # Row 0
-ac_size_var = tk.StringVar()
-tk.Entry(textvariable=ac_size_var, justify=tk.CENTER,
-         validatecommand=(root.register(validate_ac_size), '%V', '%P'), validate='all', width=2).grid(row=0, column=1)
+acronym_length_choice = tk.IntVar()
+length_menu = create_length_menu(acronym_length_choice)
+length_menu.grid(row=0, column=1)
 
 key_entry_var = tk.StringVar()
 key_entry = tk.Entry(textvariable=key_entry_var, font=(
