@@ -243,7 +243,7 @@ PRL,Preferred Roaming List,https://en.wikipedia.org/wiki/Preferred_Roaming_List
 PSK,Pre-Shared Key,https://en.wikipedia.org/wiki/Pre-shared_key
 PSU,Power Supply Unit ,https://en.wikipedia.org/wiki/Power_supply_unit_(computer)
 PXE,Preboot eXecution Environment (Pixie Boot),https://en.wikipedia.org/wiki/Preboot_Execution_Environment
-RADIUS,Remote Authentication Dial-in User Service,https://en.wikipedia.org/wiki/RADIUS
+RADIUS,Remote Authentication Dial-In User Service,https://en.wikipedia.org/wiki/RADIUS
 RAID,Redundant Array of Independent [or Inexpensive] Disks,https://en.wikipedia.org/wiki/RAID
 RAM,Random-Access Memory ,https://en.wikipedia.org/wiki/Random-access_memory
 RDP,Remote Desktop Protocol (Windows),https://en.wikipedia.org/wiki/Remote_Desktop_Protocol
@@ -276,7 +276,7 @@ SID ,Security Identifier (Windows),https://en.wikipedia.org/wiki/Security_Identi
 SIEM,Security Information and Event Management,https://en.wikipedia.org/wiki/Security_information_and_event_management
 SIM,Subscriber Identity Module,https://en.wikipedia.org/wiki/SIM_card
 SIMM,Single Inline Memory Module,https://en.wikipedia.org/wiki/SIMM
-S.M.A.R.T.,Self-Monitoring Analysis and Reporting Technology,"https://en.wikipedia.org/wiki/Self-Monitoring,_Analysis_and_Reporting_Technology"
+S.M.A.R.T. ,Self-Monitoring Analysis and Reporting Technology,"https://en.wikipedia.org/wiki/Self-Monitoring,_Analysis_and_Reporting_Technology"
 SMB,Server Message Block ,https://en.wikipedia.org/wiki/Server_Message_Block
 SMS,Short Message Service,https://en.wikipedia.org/wiki/SMS
 SMTP,Simple Mail Transfer Protocol,https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol
