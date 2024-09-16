@@ -6,14 +6,19 @@ import webbrowser
 
 items = []
 which_item = -1
-the_item = None  # {'itemkey': '', 'itemvalue': '', 'itemlink': ''}
+current_item = None  # {'itemkey': '', 'itemvalue': '', 'itemlink': ''}
 
-# keep a list of 0/1 to note incorrect/correct for each item
-scores = []
+# Keep a list of None/0/1 to note untried/incorrect/correct for each item.
+# The results list is the same length as the items list.
+results = []
+
+CORRECT = True
+INCORRECT = False
+UNTESTED = None
 
 
 def load_items_from_csv():
-    global all_items
+    global all_items, results
     with open('A+ acronyms.csv') as acs:
         # acronyms: [{
         #   'itemkey':'TACACS',
@@ -36,7 +41,7 @@ def scan_items_for_acronym_lengths():
 
 def create_length_menu():
     length_options = scan_items_for_acronym_lengths()
-    menu = tk.OptionMenu(root, acronym_length_choice, *length_options,
+    menu = tk.OptionMenu(root, acronym_length_var, *length_options,
                          command=acronym_length_changed)
     return menu
 
@@ -47,7 +52,7 @@ def update_length_menu():
     menu.delete(0, 'end')
 
     def notify_change(value):
-        acronym_length_choice.set(value)
+        acronym_length_var.set(value)
         acronym_length_changed(value)
 
     for option in length_options:
@@ -55,28 +60,28 @@ def update_length_menu():
                          command=lambda value=option: notify_change(value))
 
     # Try to keep the same choice
-    if acronym_length_choice.get() not in length_options:
-        acronym_length_choice.set(0)
+    if acronym_length_var.get() not in length_options:
+        acronym_length_var.set(0)
 
 
-def toggle_value():
-    global the_item
-    if len(items) > 0 and not value_var.get():
-        value_var.set(the_item['itemvalue'])
+def toggle_itemvalue():
+    global current_item
+    if len(items) > 0 and not itemvalue_var.get():
+        itemvalue_var.set(current_item['itemvalue'])
     else:
-        value_var.set('')
+        itemvalue_var.set('')
 
 
 def manual_entry(key):
-    global the_item
+    global current_item
     if root.focus_get() == key_entry:
         acs = list(
             filter(lambda item: item['itemkey'].upper() == key.upper(), items))
         if len(acs) > 0:
-            the_item = acs[0]
-            value_var.set(the_item['itemvalue'])
+            current_item = acs[0]
+            itemvalue_var.set(current_item['itemvalue'])
         else:
-            value_var.set('')
+            itemvalue_var.set('')
     return True
 
 
@@ -86,8 +91,8 @@ def acronym_length_changed(_new_length):
 
 def filter_items_and_show_first():
     # build the filtered list of items and display the first one
-    global items, which_item, the_item
-    length = acronym_length_choice.get()
+    global items, which_item, current_item
+    length = acronym_length_var.get()
     if length == 0:
         items = list(all_items)
     else:
@@ -95,47 +100,82 @@ def filter_items_and_show_first():
             item['itemkey']) == length, all_items))
     which_item = 0
     reset_score()
-    the_item = items[which_item] if len(items) > 0 else None
-    show_key()
+    current_item = items[which_item] if len(items) > 0 else None
+    show_itemkey()
 
 
-def show_key():
+def show_itemkey():
     root.focus_set()
     key_entry_var.set('')
-    if the_item:
-        key_entry_var.set(the_item['itemkey'])
-    value_var.set('')
+    if current_item:
+        key_entry_var.set(current_item['itemkey'])
+    itemvalue_var.set('')
     cur_which_var.set(f"{which_item + 1} / {len(items)}")
     show_score()
 
 
 def next_item():
-    global which_item, the_item
-    which_item += 1
-    if which_item >= len(items):
-        which_item = 0
-    the_item = items[which_item]
+    global which_item, current_item
 
-    # append a score based on checkbox value
-    append_score()
+    '''
+    user clicks Next
+    Set result for the current item (before moving to the next)
+    Are we in review mode?
+        No (the normal case)
+            increment which_item
+            deal with increment wrap
+        Yes
+            get index of the next incorrect result starting from current
+                index == None?
+    '''
+    set_current_item_result()
 
-    correct_answer.set(True)  # new items default to correct
+    if review_mode_var.get():
+        index = get_next_incorrect_index()
+        if index is not None:
+            which_item = index
+    else:
+        which_item += 1
+        if which_item >= len(items):
+            which_item = 0
 
-    show_key()
+    current_item = items[which_item]
+
+    # Item result defaults to CORRECT unless it is already INCORRECT
+    current_result = results[which_item]
+    correct_answer_var.set(INCORRECT if current_result ==
+                           INCORRECT else CORRECT)
+
+    show_itemkey()
 
 
 def prev_item():
-    global which_item, the_item
+    global which_item, current_item
+
+    if review_mode_var.get():
+        # Previous isn't available in review mode
+        return
+
     if which_item <= 0:
         which_item = len(items) - 1
     else:
         which_item -= 1
-    the_item = items[which_item]
+    current_item = items[which_item]
 
-    # remove the last score
-    pop_score()
+    reset_current_item_result()
 
-    show_key()
+    show_itemkey()
+
+
+def get_next_incorrect_index():
+    try:
+        found_index = results.index(INCORRECT, which_item + 1)
+    except (ValueError, IndexError):
+        try:
+            found_index = results.index(INCORRECT, 0)
+        except ValueError:
+            found_index = None
+    return found_index
 
 
 def restart_test():
@@ -145,40 +185,38 @@ def restart_test():
 
 
 def open_description_in_browser():
-    link = the_item['itemlink']
+    link = current_item['itemlink']
     if link:
         for alink in link.split("\n"):
             webbrowser.open(alink)
 
 
 def show_score():
-    correct_count = sum(scores)
-    incorrect_count = which_item - correct_count
-    incorrect_count = scores.count(0)
+    correct_count = results.count(CORRECT)
+    incorrect_count = results.count(INCORRECT)
     score_var.set(
         f"Correct: {correct_count}   Incorrect: {incorrect_count}")
 
 
-def append_score():
-    scores.append(correct_answer.get())
+def set_current_item_result():
+    results[which_item] = CORRECT if correct_answer_var.get() else INCORRECT
     show_score()
 
 
-def pop_score():
-    try:
-        scores.pop()
-    except:
-        pass
+def reset_current_item_result():
+    results[which_item] = UNTESTED
     show_score()
 
 
 def reset_score():
-    scores.clear()
+    global results
+    results = [UNTESTED] * len(items)
     show_score()
 
 
 def toggle_correct_answer():
-    correct_answer.set(not correct_answer.get())
+    correct_answer_var.set(
+        INCORRECT if correct_answer_var.get() == CORRECT else CORRECT)
 
 
 def win_evt(event):
@@ -188,20 +226,21 @@ def win_evt(event):
         case 'Left':
             prev_item()
         case 'space':
-            toggle_value()
+            toggle_itemvalue()
         case 'Escape':
             toggle_correct_answer()
 
 
 load_items_from_csv()
 root = tk.Tk()
-root.geometry('500x200+2500+1100')
+# root.geometry('500x200+2500+1100')  # external monitor
+root.geometry('500x200+800+500')  # laptop
 
 # Do this before creating any menus
 root.option_add('*tearOff', False)
 
 # Row 0
-acronym_length_choice = tk.IntVar()
+acronym_length_var = tk.IntVar()
 length_menu = create_length_menu()
 length_menu.grid(row=0, column=1)
 
@@ -213,33 +252,36 @@ cur_which_var = tk.StringVar()
 tk.Label(textvariable=cur_which_var).grid(row=0, column=3, sticky='w')
 
 # Row 1
-value_var = tk.StringVar()
-tk.Label(textvariable=value_var, justify=tk.CENTER,
+itemvalue_var = tk.StringVar()
+tk.Label(textvariable=itemvalue_var, justify=tk.CENTER,
          width=55).grid(row=1, column=1, columnspan=4)
 
 # Row 2
 tk.Button(text='Previous', command=prev_item).grid(row=2, column=1, sticky='e')
-tk.Button(text='Toggle', command=toggle_value).grid(row=2, column=2)
+tk.Button(text='Toggle', command=toggle_itemvalue).grid(row=2, column=2)
 tk.Button(text='Next', command=next_item).grid(row=2, column=3, sticky='w')
 
 # Row 3
 score_var = tk.StringVar()
 tk.Label(textvariable=score_var).grid(row=3, column=2)
 score_var.set('Score: ')
-correct_answer = tk.BooleanVar(value=True)
-tk.Checkbutton(text='Correct', variable=correct_answer).grid(
+correct_answer_var = tk.BooleanVar(value=CORRECT)
+tk.Checkbutton(text='Correct', variable=correct_answer_var).grid(
     row=3, column=3, sticky='w')
 
 # Row 4
 tk.Button(text='Reload', command=restart_test).grid(
     row=4, column=1, sticky='e')
+review_mode_var = tk.BooleanVar(value=False)
+tk.Checkbutton(text='Review Mode', variable=review_mode_var).grid(
+    row=4, column=2)
 tk.Button(text='Browse', command=open_description_in_browser).grid(
     row=4, column=3, sticky='w')
 
 filter_items_and_show_first()
 
 # test the longest string
-# value_var.set(
+# itemvalue_var.set(
 #     'Completely Automated Turing Test To Tell Computers and Humans Apart')
 
 root.bind('<Key>', win_evt)
