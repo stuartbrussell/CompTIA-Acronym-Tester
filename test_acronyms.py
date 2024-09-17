@@ -5,7 +5,7 @@ import sys
 import webbrowser
 
 items = []
-which_item = -1
+current_item_index = -1
 current_item = None  # {'itemkey': '', 'itemvalue': '', 'itemlink': ''}
 
 # Keep a list of None/0/1 to note untried/incorrect/correct for each item.
@@ -65,7 +65,6 @@ def update_length_menu():
 
 
 def toggle_itemvalue():
-    global current_item
     if len(items) > 0 and not itemvalue_var.get():
         itemvalue_var.set(current_item['itemvalue'])
     else:
@@ -73,15 +72,13 @@ def toggle_itemvalue():
 
 
 def manual_entry(key):
-    global current_item
     if root.focus_get() == key_entry:
         acs = list(
             filter(lambda item: item['itemkey'].upper() == key.upper(), items))
         if len(acs) > 0:
-            current_item = acs[0]
-            itemvalue_var.set(current_item['itemvalue'])
+            itemvalue_var.set(acs[0]['itemvalue'])
         else:
-            itemvalue_var.set('')
+            itemvalue_var.set(' ')
     return True
 
 
@@ -91,16 +88,15 @@ def acronym_length_changed(_new_length):
 
 def filter_items_and_show_first():
     # build the filtered list of items and display the first one
-    global items, which_item, current_item
+    global items
     length = acronym_length_var.get()
     if length == 0:
         items = list(all_items)
     else:
         items = list(filter(lambda item: len(
             item['itemkey']) == length, all_items))
-    which_item = 0
+    set_current_item_index(0)
     reset_score()
-    current_item = items[which_item] if len(items) > 0 else None
     show_itemkey()
 
 
@@ -110,39 +106,22 @@ def show_itemkey():
     if current_item:
         key_entry_var.set(current_item['itemkey'])
     itemvalue_var.set('')
-    cur_which_var.set(f"{which_item + 1} / {len(items)}")
+    cur_which_var.set(f"{current_item_index + 1} / {len(items)}")
     show_score()
 
 
 def next_item():
-    global which_item, current_item
-
-    '''
-    user clicks Next
-    Set result for the current item (before moving to the next)
-    Are we in review mode?
-        No (the normal case)
-            increment which_item
-            deal with increment wrap
-        Yes
-            get index of the next incorrect result starting from current
-                index == None?
-    '''
     set_current_item_result()
 
     if review_mode_var.get():
-        index = get_next_incorrect_index()
+        index = get_next_incorrect_index(current_item_index)
         if index is not None:
-            which_item = index
+            set_current_item_index(index)
     else:
-        which_item += 1
-        if which_item >= len(items):
-            which_item = 0
-
-    current_item = items[which_item]
+        set_current_item_index(current_item_index + 1)
 
     # Item result defaults to CORRECT unless it is already INCORRECT
-    current_result = results[which_item]
+    current_result = results[current_item_index]
     correct_answer_var.set(INCORRECT if current_result ==
                            INCORRECT else CORRECT)
 
@@ -150,26 +129,16 @@ def next_item():
 
 
 def prev_item():
-    global which_item, current_item
-
-    if review_mode_var.get():
-        # Previous isn't available in review mode
-        return
-
-    if which_item <= 0:
-        which_item = len(items) - 1
-    else:
-        which_item -= 1
-    current_item = items[which_item]
+    set_current_item_index(current_item_index - 1)
 
     reset_current_item_result()
 
     show_itemkey()
 
 
-def get_next_incorrect_index():
+def get_next_incorrect_index(cur_index):
     try:
-        found_index = results.index(INCORRECT, which_item + 1)
+        found_index = results.index(INCORRECT, cur_index + 1)
     except (ValueError, IndexError):
         try:
             found_index = results.index(INCORRECT, 0)
@@ -198,25 +167,72 @@ def show_score():
         f"Correct: {correct_count}   Incorrect: {incorrect_count}")
 
 
+def set_current_item_index(value):
+    global current_item_index
+    current_item_index = value
+    if current_item_index >= len(items):
+        current_item_index = 0
+    elif current_item_index < 0:
+        current_item_index = len(items) - 1
+
+    try:
+        set_current_item(items[current_item_index])
+    except:
+        set_current_item(None)
+
+
+def set_current_item(item):
+    global current_item
+    current_item = item
+    show_itemkey()
+
+
 def set_current_item_result():
-    results[which_item] = CORRECT if correct_answer_var.get() else INCORRECT
+    results[current_item_index] = CORRECT if correct_answer_var.get() else INCORRECT
+    if INCORRECT in results:
+        review_mode_btn.config(state=tk.ACTIVE)
+    else:
+        reset_review_mode()
     show_score()
 
 
 def reset_current_item_result():
-    results[which_item] = UNTESTED
+    results[current_item_index] = UNTESTED
     show_score()
+
+
+def toggle_review_mode():
+    is_review_mode = review_mode_var.get()
+    if is_review_mode:
+        previous_btn.config(state=tk.DISABLED)
+        first_incorrect_index = get_next_incorrect_index(-1)
+        if first_incorrect_index is not None:
+            set_current_item_index(first_incorrect_index)
+            correct_answer_var.set(INCORRECT)
+    else:
+        previous_btn.config(state=tk.ACTIVE)
+
+
+def reset_review_mode():
+    review_mode_var.set(False)
+    review_mode_btn.config(state=tk.DISABLED)
+    previous_btn.config(state=tk.ACTIVE)
 
 
 def reset_score():
     global results
     results = [UNTESTED] * len(items)
+    reset_review_mode()
     show_score()
 
 
 def toggle_correct_answer():
-    correct_answer_var.set(
-        INCORRECT if correct_answer_var.get() == CORRECT else CORRECT)
+    correct_answer_var.set(INCORRECT if correct_answer_var.get()
+                           == CORRECT else CORRECT)
+
+
+# def set_correct_answer(is_correct):
+#     correct_answer_var.set(is_correct)
 
 
 def win_evt(event):
@@ -234,7 +250,7 @@ def win_evt(event):
 load_items_from_csv()
 root = tk.Tk()
 # root.geometry('500x200+2500+1100')  # external monitor
-root.geometry('500x200+800+500')  # laptop
+root.geometry('500x200+100+500')  # laptop
 
 # Do this before creating any menus
 root.option_add('*tearOff', False)
@@ -257,7 +273,8 @@ tk.Label(textvariable=itemvalue_var, justify=tk.CENTER,
          width=55).grid(row=1, column=1, columnspan=4)
 
 # Row 2
-tk.Button(text='Previous', command=prev_item).grid(row=2, column=1, sticky='e')
+previous_btn = tk.Button(text='Previous', command=prev_item)
+previous_btn.grid(row=2, column=1, sticky='e')
 tk.Button(text='Toggle', command=toggle_itemvalue).grid(row=2, column=2)
 tk.Button(text='Next', command=next_item).grid(row=2, column=3, sticky='w')
 
@@ -273,8 +290,9 @@ tk.Checkbutton(text='Correct', variable=correct_answer_var).grid(
 tk.Button(text='Reload', command=restart_test).grid(
     row=4, column=1, sticky='e')
 review_mode_var = tk.BooleanVar(value=False)
-tk.Checkbutton(text='Review Mode', variable=review_mode_var).grid(
-    row=4, column=2)
+review_mode_btn = tk.Checkbutton(
+    text='Review Mode', variable=review_mode_var, command=toggle_review_mode)
+review_mode_btn.grid(row=4, column=2)
 tk.Button(text='Browse', command=open_description_in_browser).grid(
     row=4, column=3, sticky='w')
 
