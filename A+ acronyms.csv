@@ -173,15 +173,15 @@ MAM,Mobile Application Management ,https://en.wikipedia.org/wiki/Mobile_applicat
 MAN,Metropolitan Area Network,https://en.wikipedia.org/wiki/Metropolitan_area_network
 Mb,Megabit,https://en.wikipedia.org/wiki/Megabit
 MB,Megabyte,https://en.wikipedia.org/wiki/Megabyte
-Mbps ,Megabit per second,https://en.wikipedia.org/wiki/Data-rate_units#Megabit_per_second
+Mbps,Megabit per second,https://en.wikipedia.org/wiki/Data-rate_units#Megabit_per_second
 MBR,Master Boot Record (IBM PC - superseded by GPT),https://en.wikipedia.org/wiki/Master_boot_record
 MDM,Mobile Device Management,https://en.wikipedia.org/wiki/Mobile_device_management
 MFA,Multifactor Authentication,https://en.wikipedia.org/wiki/Multi-factor_authentication
 MFD,"Multi-Function Device (a.k.a. AIO, MFP)",https://en.wikipedia.org/wiki/Multi-function_printer
 MFP,"Multi-Function Printer (a.k.a. AIO, MFD)",https://en.wikipedia.org/wiki/Multi-function_printer
-MHz ,Megahertz,https://en.wikipedia.org/wiki/Hertz
+MHz,Megahertz,https://en.wikipedia.org/wiki/Hertz
 MIC,Message Integrity Check (prefer Message Authentication Code),https://en.wikipedia.org/wiki/Message_authentication_code
-MITM ,Man in the Middle,https://en.wikipedia.org/wiki/Man-in-the-middle_attack
+MITM,Man in the Middle,https://en.wikipedia.org/wiki/Man-in-the-middle_attack
 MMC,Microsoft Management Console (Windows - snap-ins),https://en.wikipedia.org/wiki/Microsoft_Management_Console
 MMS,Multimedia Messaging Service,https://en.wikipedia.org/wiki/Multimedia_Messaging_Service
 MOU,Memorandum of Understanding,https://en.wikipedia.org/wiki/Memorandum_of_understanding
@@ -218,7 +218,7 @@ P2P,Peer-To-Peer,https://en.wikipedia.org/wiki/Peer-to-peer
 PaaS,Platform as a Service,https://en.wikipedia.org/wiki/Platform_as_a_service
 PAN,Personal Area Network,https://en.wikipedia.org/wiki/Personal_area_network
 PATA,Parallel Advanced Technology Attachment (== ATA),https://en.wikipedia.org/wiki/Parallel_ATA
-PB ,Petabyte (KB * 10*5),https://en.wikipedia.org/wiki/Byte
+PB,Petabyte (KB * 10*5),https://en.wikipedia.org/wiki/Byte
 PC,Personal Computer,https://en.wikipedia.org/wiki/Personal_computer
 PCI,Peripheral Component Interconnect/Payment Card Industry,"https://en.wikipedia.org/wiki/Peripheral_Component_Interconnect
 https://en.wikipedia.org/wiki/Payment_card_industry"
@@ -272,11 +272,11 @@ SDN,Software-Defined Networking ,https://en.wikipedia.org/wiki/Software-defined_
 SFC,System File Checker (Windows),https://en.wikipedia.org/wiki/System_File_Checker
 SFTP,SSH (Secure) File Transfer Protocol,https://en.wikipedia.org/wiki/SSH_File_Transfer_Protocol
 SHA,Secure Hashing Algorithm,https://en.wikipedia.org/wiki/Secure_Hash_Algorithms
-SID ,Security Identifier (Windows),https://en.wikipedia.org/wiki/Security_Identifier
+SID,Security Identifier (Windows),https://en.wikipedia.org/wiki/Security_Identifier
 SIEM,Security Information and Event Management,https://en.wikipedia.org/wiki/Security_information_and_event_management
 SIM,Subscriber Identity Module,https://en.wikipedia.org/wiki/SIM_card
 SIMM,Single Inline Memory Module,https://en.wikipedia.org/wiki/SIMM
-S.M.A.R.T. ,Self-Monitoring Analysis and Reporting Technology,"https://en.wikipedia.org/wiki/Self-Monitoring,_Analysis_and_Reporting_Technology"
+S.M.A.R.T.,Self-Monitoring Analysis and Reporting Technology,"https://en.wikipedia.org/wiki/Self-Monitoring,_Analysis_and_Reporting_Technology"
 SMB,Server Message Block ,https://en.wikipedia.org/wiki/Server_Message_Block
 SMS,Short Message Service,https://en.wikipedia.org/wiki/SMS
 SMTP,Simple Mail Transfer Protocol,https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol
