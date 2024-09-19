@@ -12,7 +12,7 @@ AIO,"All In One (a.k.a. MFP, MFD)",https://en.wikipedia.org/wiki/Multi-function_
 AP,(Wireless) Access Point,https://en.wikipedia.org/wiki/Wireless_access_point
 API,Application Program Interface,https://en.wikipedia.org/wiki/API
 APFS,Apple File System,https://en.wikipedia.org/wiki/Apple_File_System
-APIPA,Automatic Private Internet Protocol Addressing (Windows),https://en.wikipedia.org/wiki/Link-local_address
+APIPA,Automatic Private Internet Protocol Addressing (IPv4),https://en.wikipedia.org/wiki/Link-local_address
 APK,Android Package Kit,https://en.wikipedia.org/wiki/Apk_(file_format)
 APN,Access Point Name (Android phone setting),https://en.wikipedia.org/wiki/Access_Point_Name
 ARM,Advanced RISC Machine ,https://en.wikipedia.org/wiki/ARM_architecture_family
@@ -106,7 +106,7 @@ FTP,File Transfer Protocol,https://en.wikipedia.org/wiki/File_Transfer_Protocol
 FTPS,File Transfer Protocol Secure (FTP with TLS),https://en.wikipedia.org/wiki/FTPS
 Gb,Gigabit,https://en.wikipedia.org/wiki/Gigabit_Ethernet
 GB,Gigabyte,https://en.wikipedia.org/wiki/Gigabyte
-Gbps,Gigabit per second,https://en.wikipedia.org/wiki/Data-rate_units#Gigabit_per_second
+Gbps,Gigabits per second,https://en.wikipedia.org/wiki/Data-rate_units#Gigabit_per_second
 GDDR,Graphics DDR [Double Data Rate],https://en.wikipedia.org/wiki/GDDR_SDRAM
 GDPR,General Data Protection Regulation (EU privacy),https://en.wikipedia.org/wiki/General_Data_Protection_Regulation
 GFS,Grandfather-Father-Son,https://en.wikipedia.org/wiki/Backup_rotation_scheme#Grandfather-father-son
@@ -156,7 +156,7 @@ JBOD,Just A Bunch Of Disks (i.e. not RAID),https://en.wikipedia.org/wiki/Non-RAI
 Kb,Kilobit,https://en.wikipedia.org/wiki/Kilobit
 KB,Kilobyte or Knowledge Base,"https://en.wikipedia.org/wiki/Kilobyte
 https://en.wikipedia.org/wiki/Knowledge_base"
-Kbps,Kilobit per second,https://en.wikipedia.org/wiki/Data-rate_units#Kilobit_per_second
+Kbps,Kilobits per second,https://en.wikipedia.org/wiki/Data-rate_units#Kilobit_per_second
 KVM,Keyboard-Video-Mouse,https://en.wikipedia.org/wiki/KVM_switch
 L2TP,Layer 2 Tunneling Protocol,https://en.wikipedia.org/wiki/Layer_2_Tunneling_Protocol
 LAN,Local Area Network,https://en.wikipedia.org/wiki/Local_area_network
@@ -173,7 +173,7 @@ MAM,Mobile Application Management ,https://en.wikipedia.org/wiki/Mobile_applicat
 MAN,Metropolitan Area Network,https://en.wikipedia.org/wiki/Metropolitan_area_network
 Mb,Megabit,https://en.wikipedia.org/wiki/Megabit
 MB,Megabyte,https://en.wikipedia.org/wiki/Megabyte
-Mbps,Megabit per second,https://en.wikipedia.org/wiki/Data-rate_units#Megabit_per_second
+Mbps,Megabits per second,https://en.wikipedia.org/wiki/Data-rate_units#Megabit_per_second
 MBR,Master Boot Record (IBM PC - superseded by GPT),https://en.wikipedia.org/wiki/Master_boot_record
 MDM,Mobile Device Management,https://en.wikipedia.org/wiki/Mobile_device_management
 MFA,Multifactor Authentication,https://en.wikipedia.org/wiki/Multi-factor_authentication
