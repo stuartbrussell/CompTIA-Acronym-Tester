@@ -111,27 +111,27 @@ def show_itemkey():
 
 
 def next_item():
-    set_current_item_result()
+    update_current_item_result()
 
     if review_mode_var.get():
         index = get_next_incorrect_index(current_item_index)
         if index is not None:
             set_current_item_index(index)
     else:
-        set_current_item_index(current_item_index + 1)
+        set_current_item_index(current_item_index + 1)\
 
-    # Item result defaults to CORRECT unless it is already INCORRECT
-    current_result = results[current_item_index]
-    correct_answer_var.set(INCORRECT if current_result ==
-                           INCORRECT else CORRECT)
-
+    update_correct_answer_checkbox()
     show_itemkey()
 
 
 def prev_item():
-    set_current_item_index(current_item_index - 1)
-
-    reset_current_item_result()
+    if review_mode_var.get():
+        index = get_prev_incorrect_index(current_item_index)
+        if index is not None:
+            set_current_item_index(index)
+    else:
+        set_current_item_index(current_item_index - 1)
+        update_correct_answer_checkbox()
 
     show_itemkey()
 
@@ -147,9 +147,26 @@ def get_next_incorrect_index(cur_index):
     return found_index
 
 
+def get_prev_incorrect_index(cur_index):
+    try:
+        results_rev = results[-1::-1]
+        starting_index = len(results_rev) - cur_index
+        found_index = results_rev.index(INCORRECT,  starting_index)
+    except (ValueError, IndexError) as e:
+        try:
+            found_index = results_rev.index(INCORRECT, 0)
+        except ValueError:
+            found_index = None
+    if found_index is not None:
+        found_index = len(results_rev) - found_index - 1
+    return found_index
+
+
 def restart_test():
     load_items_from_csv()
     update_length_menu()
+    reset_current_item_result()
+    update_correct_answer_checkbox()
     filter_items_and_show_first()
 
 
@@ -187,13 +204,20 @@ def set_current_item(item):
     show_itemkey()
 
 
-def set_current_item_result():
+def update_current_item_result():
     results[current_item_index] = CORRECT if correct_answer_var.get() else INCORRECT
     if INCORRECT in results:
         review_mode_btn.config(state=tk.ACTIVE)
     else:
         reset_review_mode()
     show_score()
+
+
+def update_correct_answer_checkbox():
+    # Item result defaults to CORRECT unless it is already INCORRECT
+    current_result = results[current_item_index]
+    correct_answer_var.set(INCORRECT if current_result ==
+                           INCORRECT else CORRECT)
 
 
 def reset_current_item_result():
@@ -203,36 +227,29 @@ def reset_current_item_result():
 
 def toggle_review_mode():
     is_review_mode = review_mode_var.get()
-    if is_review_mode:
-        previous_btn.config(state=tk.DISABLED)
-        first_incorrect_index = get_next_incorrect_index(-1)
-        if first_incorrect_index is not None:
-            set_current_item_index(first_incorrect_index)
-            correct_answer_var.set(INCORRECT)
-    else:
-        previous_btn.config(state=tk.ACTIVE)
+    first_incorrect_index = get_next_incorrect_index(-1)
+    if first_incorrect_index is not None:
+        set_current_item_index(first_incorrect_index)
+        correct_answer_var.set(INCORRECT)
 
 
 def reset_review_mode():
     review_mode_var.set(False)
     review_mode_btn.config(state=tk.DISABLED)
-    previous_btn.config(state=tk.ACTIVE)
 
 
 def reset_score():
     global results
     results = [UNTESTED] * len(items)
     reset_review_mode()
+    update_correct_answer_checkbox()
     show_score()
 
 
 def toggle_correct_answer():
     correct_answer_var.set(INCORRECT if correct_answer_var.get()
                            == CORRECT else CORRECT)
-
-
-# def set_correct_answer(is_correct):
-#     correct_answer_var.set(is_correct)
+    update_current_item_result()
 
 
 def win_evt(event):
@@ -249,8 +266,8 @@ def win_evt(event):
 
 load_items_from_csv()
 root = tk.Tk()
-# root.geometry('500x200+2500+1100')  # external monitor
-root.geometry('500x200+100+500')  # laptop
+root.geometry('500x200+2500+1100')  # external monitor
+# root.geometry('500x200+100+500')  # laptop
 
 # Do this before creating any menus
 root.option_add('*tearOff', False)
