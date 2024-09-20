@@ -308,7 +308,7 @@ Tbps,Terabits per second,https://en.wikipedia.org/wiki/Data-rate_units#Terabit_p
 TCP,Transmission Control Protocol ,https://en.wikipedia.org/wiki/Transmission_Control_Protocol
 TCP/IP,Transmission Control Protocol/Internet Protocol ,https://en.wikipedia.org/wiki/Internet_protocol_suite
 TFTP,Trivial File Transfer Protocol,https://en.wikipedia.org/wiki/Trivial_File_Transfer_Protocol
-TKIP,Temporal Key Integrity Protocol (WiFi),https://en.wikipedia.org/wiki/Temporal_Key_Integrity_Protocol
+TKIP,Temporal Key Integrity Protocol (WPA),https://en.wikipedia.org/wiki/Temporal_Key_Integrity_Protocol
 TLS,Transport Layer Security,https://en.wikipedia.org/wiki/Transport_Layer_Security
 TN,Twisted Nematic (LCD),https://en.wikipedia.org/wiki/Twisted_nematic_field_effect
 TPM,Trusted Platform Module,https://en.wikipedia.org/wiki/Trusted_Platform_Module
@@ -348,8 +348,9 @@ WinPE,Windows Preinstallation Environment,https://en.wikipedia.org/wiki/Windows_
 WISP,Wireless Internet Service Provider,https://en.wikipedia.org/wiki/Wireless_Internet_service_provider
 WLAN,Wireless LAN,https://en.wikipedia.org/wiki/Wireless_LAN
 WMN,Wireless Mesh Network,https://en.wikipedia.org/wiki/Wireless_mesh_network
-WPA,Wi-Fi Protected Access,https://en.wikipedia.org/wiki/Wi-Fi_Protected_Access#WPA
+WPA,Wi-Fi Protected Access (TKIP),https://en.wikipedia.org/wiki/Wi-Fi_Protected_Access#WPA
 WPA2,Wi-Fi Protected Access 2,https://en.wikipedia.org/wiki/Wi-Fi_Protected_Access#WPA2
+WPA3,Wi-Fi Protected Access 3,https://en.wikipedia.org/wiki/Wi-Fi_Protected_Access#WPA3
 WPS,Wi-Fi Protected Setup,https://en.wikipedia.org/wiki/Wi-Fi_Protected_Setup
 WWAN,Wireless Wide Area Network,https://en.wikipedia.org/wiki/Wireless_WAN
 XML,Extensible Markup Language,https://en.wikipedia.org/wiki/XML
