@@ -266,8 +266,14 @@ def win_evt(event):
 
 load_items_from_csv()
 root = tk.Tk()
-root.geometry('500x200+2500+1100')  # external monitor
-# root.geometry('500x200+100+500')  # laptop
+window_width = 500
+window_height = 200
+# center window on screen
+screen_width = root.winfo_screenwidth()
+screen_height = root.winfo_screenheight()
+window_ul_x = int(screen_width/2 - window_width/2)
+window_ul_y = int(screen_height/2 - window_height/2)
+root.geometry(f"{window_width}x{window_height}+{window_ul_x}+{window_ul_y}")
 
 # Do this before creating any menus
 root.option_add('*tearOff', False)
