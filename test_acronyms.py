@@ -246,9 +246,12 @@ def reset_score():
     show_score()
 
 
-def toggle_correct_answer():
-    correct_answer_var.set(INCORRECT if correct_answer_var.get()
-                           == CORRECT else CORRECT)
+def toggle_correct_answer(update_var=False):
+    if update_var:
+        # Only do this if the command is NOT called from the checkbutton.
+        # The checkbutton already sets the var.
+        correct_answer_var.set(INCORRECT if correct_answer_var.get()
+                               == CORRECT else CORRECT)
     update_current_item_result()
 
 
@@ -261,7 +264,7 @@ def win_evt(event):
         case 'space':
             toggle_itemvalue()
         case 'Escape':
-            toggle_correct_answer()
+            toggle_correct_answer(update_var=True)
 
 
 load_items_from_csv()
@@ -306,7 +309,7 @@ score_var = tk.StringVar()
 tk.Label(textvariable=score_var).grid(row=3, column=2)
 score_var.set('Score: ')
 correct_answer_var = tk.BooleanVar(value=CORRECT)
-tk.Checkbutton(text='Correct', variable=correct_answer_var).grid(
+tk.Checkbutton(text='Correct', variable=correct_answer_var, command=toggle_correct_answer).grid(
     row=3, column=3, sticky='w')
 
 # Row 4
