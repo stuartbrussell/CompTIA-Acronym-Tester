@@ -69,6 +69,7 @@ def toggle_itemvalue():
         itemvalue_var.set(current_item['itemvalue'])
     else:
         itemvalue_var.set('')
+    root.focus_set()
 
 
 def manual_entry(key):
@@ -257,9 +258,9 @@ def toggle_correct_answer(update_var=False):
 
 def win_evt(event):
     match event.keysym:
-        case 'Right':
+        case 'Right' | 'Down':
             next_item()
-        case 'Left':
+        case 'Left' | 'Up':
             prev_item()
         case 'space':
             toggle_itemvalue()
