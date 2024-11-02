@@ -8,7 +8,7 @@ ADK,Assessment and Deployment Kit (Windows),https://en.wikipedia.org/wiki/Window
 AES,Advanced Encryption Standard,https://en.wikipedia.org/wiki/Advanced_Encryption_Standard
 AFP,Apple Filing Protocol,https://en.wikipedia.org/wiki/Apple_Filing_Protocol
 AGP,Accelerated Graphics Port,https://en.wikipedia.org/wiki/Accelerated_Graphics_Port
-AIO,"All In One (a.k.a. MFP, MFD)",https://en.wikipedia.org/wiki/Multi-function_printer
+AIO,"All In One (a.k.a. MFP, MFD, e.g. printer-scanner-fax)",https://en.wikipedia.org/wiki/Multi-function_printer
 AP,(Wireless) Access Point,https://en.wikipedia.org/wiki/Wireless_access_point
 API,Application Program Interface,https://en.wikipedia.org/wiki/API
 APFS,Apple File System,https://en.wikipedia.org/wiki/Apple_File_System
@@ -115,7 +115,7 @@ GPO,Group Policy Object (Active Directory),https://en.wikipedia.org/wiki/Group_P
 GPS,Global Positioning System ,https://en.wikipedia.org/wiki/Global_Positioning_System
 GPT,GUID [Globally Unique Identifier] Partition Table ,https://en.wikipedia.org/wiki/GUID_Partition_Table
 GPU,Graphics Processing Unit ,https://en.wikipedia.org/wiki/Graphics_processing_unit
-GSM,Global System for Mobile Communications,https://en.wikipedia.org/wiki/GSM
+GSM,Global System for Mobile Communications (2G),https://en.wikipedia.org/wiki/GSM
 GUI,Graphical User Interface,https://en.wikipedia.org/wiki/Graphical_user_interface
 GUID,Globally Unique Identifier,https://en.wikipedia.org/wiki/Universally_unique_identifier
 HAL,Hardware Abstraction Layer ,https://en.wikipedia.org/wiki/Hardware_abstraction
@@ -126,7 +126,7 @@ HDD,Hard Disk Drive,https://en.wikipedia.org/wiki/Hard_disk_drive
 HDMI,High-Definition Multimedia Interface,https://en.wikipedia.org/wiki/HDMI
 HFS,Hierarchical File System (Macintosh),https://en.wikipedia.org/wiki/Hierarchical_File_System_(Apple)
 HHD,Hybrid Hard Drive,https://en.wikipedia.org/wiki/Hybrid_drive
-HSM,Hardware Security Module,https://en.wikipedia.org/wiki/Hardware_security_module
+HSM,Hardware Security Module (see TPM),https://en.wikipedia.org/wiki/Hardware_security_module
 HTML,Hypertext Markup Language,https://en.wikipedia.org/wiki/HTML
 HTTP,Hypertext Transfer Protocol,https://en.wikipedia.org/wiki/HTTP
 HTTPS,Hypertext Transfer Protocol Secure,https://en.wikipedia.org/wiki/HTTPS
@@ -311,7 +311,7 @@ TFTP,Trivial File Transfer Protocol,https://en.wikipedia.org/wiki/Trivial_File_T
 TKIP,Temporal Key Integrity Protocol (WPA),https://en.wikipedia.org/wiki/Temporal_Key_Integrity_Protocol
 TLS,Transport Layer Security,https://en.wikipedia.org/wiki/Transport_Layer_Security
 TN,Twisted Nematic (LCD),https://en.wikipedia.org/wiki/Twisted_nematic_field_effect
-TPM,Trusted Platform Module,https://en.wikipedia.org/wiki/Trusted_Platform_Module
+TPM,Trusted Platform Module (see HSM),https://en.wikipedia.org/wiki/Trusted_Platform_Module
 TRRS,Tip Ring Ring Sleeve (headphone jack),https://en.wikipedia.org/wiki/Phone_connector_(audio)#TRRS_standards
 UAC,User Account Control (Windows MAC enforcement feature),https://en.wikipedia.org/wiki/User_Account_Control
 UDP,User Datagram Protocol,https://en.wikipedia.org/wiki/User_Datagram_Protocol
@@ -326,7 +326,7 @@ USB-C,Universal Serial Bus Type C,https://en.wikipedia.org/wiki/USB-C
 USB OTG,Universal Serial Bus On-The-Go,https://en.wikipedia.org/wiki/USB_On-The-Go
 UTM,Unified Threat Management,https://en.wikipedia.org/wiki/Unified_threat_management
 UTP,Unshielded Twisted Pair,https://en.wikipedia.org/wiki/Twisted_pair#Unshielded_twisted_pair
-UWP,Universal Windows Platform,https://en.wikipedia.org/wiki/Universal_Windows_Platform_apps
+UWP,Universal Windows Platform (apps),https://en.wikipedia.org/wiki/Universal_Windows_Platform_apps
 UX,User Experience,https://en.wikipedia.org/wiki/User_experience
 VA,Vertical Alignment (LCD),https://en.wikipedia.org/wiki/Liquid-crystal_display#Vertical_alignment_(VA)
 VDI,Virtual Desktop Infrastructure,https://en.wikipedia.org/wiki/Desktop_virtualization
