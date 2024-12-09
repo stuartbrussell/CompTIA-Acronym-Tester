@@ -33,6 +33,7 @@ CaaS,Containers as a Service,https://www.docker.com/blog/containers-as-a-service
 CAD,Computer-aided Design,https://en.wikipedia.org/wiki/Computer-aided_design
 CAM,Computer-Aided Manufacturing,https://en.wikipedia.org/wiki/Computer-aided_manufacturing
 CAPTCHA,Completely Automated Public Turing test to tell Computers and Humans Apart,https://en.wikipedia.org/wiki/CAPTCHA
+CCTV,Closed Circuit Television,https://en.wikipedia.org/wiki/Closed-circuit_television
 CD,Compact Disc ,https://en.wikipedia.org/wiki/Compact_disc
 CDFS,Compact Disc File System,https://en.wikipedia.org/wiki/Compact_Disc_File_System
 CD-ROM,Compact Disc-Read-Only Memory,https://en.wikipedia.org/wiki/CD-ROM
@@ -180,7 +181,7 @@ MFA,Multifactor Authentication,https://en.wikipedia.org/wiki/Multi-factor_authen
 MFD,"Multi-Function Device (a.k.a. AIO, MFP)",https://en.wikipedia.org/wiki/Multi-function_printer
 MFP,"Multi-Function Printer (a.k.a. AIO, MFD)",https://en.wikipedia.org/wiki/Multi-function_printer
 MHz,Megahertz,https://en.wikipedia.org/wiki/Hertz
-MIC,Message Integrity Check (prefer Message Authentication Code),https://en.wikipedia.org/wiki/Message_authentication_code
+MIC,Message Integrity Code (prefer Message Authentication Code),https://en.wikipedia.org/wiki/Message_authentication_code
 MITM,Man in the Middle,https://en.wikipedia.org/wiki/Man-in-the-middle_attack
 MMC,Microsoft Management Console (Windows - snap-ins),https://en.wikipedia.org/wiki/Microsoft_Management_Console
 MMS,Multimedia Messaging Service,https://en.wikipedia.org/wiki/Multimedia_Messaging_Service
@@ -258,6 +259,7 @@ ROM,Read-only Memory,https://en.wikipedia.org/wiki/Read-only_memory
 RTO,Recovery Time Objective,https://en.wikipedia.org/wiki/IT_disaster_recovery#Recovery_Time_Objective
 S/MIME,Secure/Multipurpose Internet Mail Extensions,https://en.wikipedia.org/wiki/S/MIME
 SaaS,Software as a Service ,https://en.wikipedia.org/wiki/Software_as_a_service
+SAE,Simultaneous Authentication of Equals,https://en.wikipedia.org/wiki/Simultaneous_Authentication_of_Equals
 SAM,"Security Account Manager (Windows, similar to macOS Keychain)",https://en.wikipedia.org/wiki/Security_Account_Manager
 SAN,Storage Area Network,https://en.wikipedia.org/wiki/Storage_area_network
 SAS,Serial Attached SCSI,https://en.wikipedia.org/wiki/Serial_Attached_SCSI
@@ -332,7 +334,8 @@ VA,Vertical Alignment (LCD),https://en.wikipedia.org/wiki/Liquid-crystal_display
 VDI,Virtual Desktop Infrastructure,https://en.wikipedia.org/wiki/Desktop_virtualization
 VGA,Video Graphics Array,https://en.wikipedia.org/wiki/Video_Graphics_Array
 VLAN,Virtual LAN,https://en.wikipedia.org/wiki/VLAN
-VM,Virtual Machine,https://en.wikipedia.org/wiki/Virtual_machine
+VM,Virtual Machine or Virtual Memory,"https://en.wikipedia.org/wiki/Virtual_machine
+https://en.wikipedia.org/wiki/Virtual_memory"
 VNC,Virtual Network Computer,https://en.wikipedia.org/wiki/Virtual_Network_Computing
 VoIP,Voice over Internet Protocol,https://en.wikipedia.org/wiki/Voice_over_IP
 VoLTE,Voice over Long Term Evolution,https://en.wikipedia.org/wiki/Voice_over_LTE
