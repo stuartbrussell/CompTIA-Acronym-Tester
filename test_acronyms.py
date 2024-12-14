@@ -4,9 +4,11 @@ import random
 import sys
 import webbrowser
 
+all_items = []
 items = []
 current_item_index = -1
 current_item = None  # {'itemkey': '', 'itemvalue': '', 'itemlink': ''}
+manual_entry_mode_enabled = False
 
 # Keep a list of None/0/1 to note untried/incorrect/correct for each item.
 # The results list is the same length as the items list.
@@ -18,7 +20,7 @@ UNTESTED = None
 
 
 def load_items_from_csv():
-    global all_items, results
+    global all_items
     with open('A+ acronyms.csv') as acs:
         # acronyms: [{
         #   'itemkey':'TACACS',
@@ -75,7 +77,9 @@ def toggle_itemvalue():
 def manual_entry(key):
     # A hacky way to try out a specific key. It does not affect the current
     # index. Prev/Next will continue as if the manual entry did not occur.
+    # Press esc to exit manual entry mode.
     if root.focus_get() == key_entry:
+        set_manual_entry_mode(True)
         acs = list(
             filter(lambda item: item['itemkey'].upper() == key.upper(), items))
         if len(acs) > 0:
@@ -86,6 +90,16 @@ def manual_entry(key):
         else:
             itemvalue_var.set(' ')
     return True
+
+
+def set_manual_entry_mode(enabled):
+    global manual_entry_mode_enabled
+    manual_entry_mode_enabled = enabled
+    if enabled:
+        correct_answer_btn.config(state=tk.DISABLED)
+    else:
+        correct_answer_btn.config(state=tk.ACTIVE)
+        set_current_item(items[current_item_index])
 
 
 def acronym_length_changed(_new_length):
@@ -117,6 +131,7 @@ def show_itemkey():
 
 
 def next_item():
+    set_manual_entry_mode(False)
     update_current_item_result()
 
     if review_mode_var.get():
@@ -131,6 +146,7 @@ def next_item():
 
 
 def prev_item():
+    set_manual_entry_mode(False)
     if review_mode_var.get():
         index = get_prev_incorrect_index(current_item_index)
         if index is not None:
@@ -270,7 +286,10 @@ def win_evt(event):
         case 'space':
             toggle_itemvalue()
         case 'Escape':
-            toggle_correct_answer(update_var=True)
+            if manual_entry_mode_enabled:
+                set_manual_entry_mode(False)
+            else:
+                toggle_correct_answer(update_var=True)
 
 
 load_items_from_csv()
@@ -315,7 +334,9 @@ score_var = tk.StringVar()
 tk.Label(textvariable=score_var).grid(row=3, column=2)
 score_var.set('Score: ')
 correct_answer_var = tk.BooleanVar(value=CORRECT)
-tk.Checkbutton(text='Correct', variable=correct_answer_var, command=toggle_correct_answer).grid(
+correct_answer_btn = tk.Checkbutton(
+    text='Correct', variable=correct_answer_var, command=toggle_correct_answer)
+correct_answer_btn.grid(
     row=3, column=3, sticky='w')
 
 # Row 4
