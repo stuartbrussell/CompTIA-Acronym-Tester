@@ -73,11 +73,16 @@ def toggle_itemvalue():
 
 
 def manual_entry(key):
+    # A hacky way to try out a specific key. It does not affect the current
+    # index. Prev/Next will continue as if the manual entry did not occur.
     if root.focus_get() == key_entry:
         acs = list(
             filter(lambda item: item['itemkey'].upper() == key.upper(), items))
         if len(acs) > 0:
-            itemvalue_var.set(acs[0]['itemvalue'])
+            item = acs[0]
+            itemvalue_var.set(item['itemvalue'])
+            global current_item
+            current_item = item
         else:
             itemvalue_var.set(' ')
     return True
