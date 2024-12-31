@@ -56,11 +56,12 @@ class Root(tk.Tk):
                  width=55).grid(row=1, column=1, columnspan=4)
 
         # Row 2
-        previous_btn = tk.Button(text='Previous', command=self.prev_item)
-        previous_btn.grid(row=2, column=1, sticky='e')
+        self.previous_btn = tk.Button(text='Previous', command=self.prev_item)
+        self.previous_btn.grid(row=2, column=1, sticky='e')
         tk.Button(text='Toggle', command=self.toggle_itemvalue).grid(
             row=2, column=2)
-        tk.Button(text='Next', command=self.next_item).grid(
+        self.next_btn = tk.Button(text='Next', command=self.next_item)
+        self.next_btn.grid(
             row=2, column=3, sticky='w')
 
         # Row 3
@@ -83,13 +84,13 @@ class Root(tk.Tk):
         tk.Button(text='Browse', command=self.open_description_in_browser).grid(
             row=4, column=3, sticky='w')
 
-        self.restart_test()
+        self.bind('<Key>', self.win_evt)
 
         # test the longest string
         # self.itemvalue_var.set(
         #     'Completely Automated Turing Test To Tell Computers and Humans Apart')
 
-        self.bind('<Key>', self.win_evt)
+        self.restart_test()
 
     def load_items_from_csv(self):
         with open('A+ acronyms.csv') as acs:
@@ -160,8 +161,14 @@ class Root(tk.Tk):
         self.manual_entry_mode_enabled = enabled
         if enabled:
             self.correct_answer_btn.config(state=tk.DISABLED)
+            self.next_btn.config(state=tk.DISABLED)
+            self.previous_btn.config(state=tk.DISABLED)
+            self.length_menu.config(state=tk.DISABLED)
         else:
             self.correct_answer_btn.config(state=tk.ACTIVE)
+            self.next_btn.config(state=tk.ACTIVE)
+            self.previous_btn.config(state=tk.ACTIVE)
+            self.length_menu.config(state=tk.ACTIVE)
             self.set_current_item(self.items[self.current_item_index])
 
     def acronym_length_changed(self, _new_length):
@@ -244,6 +251,7 @@ class Root(tk.Tk):
         self.update_length_menu()
         self.filter_items_and_show_first()
         self.update_correct_answer_checkbox()
+        self.set_manual_entry_mode(False)
 
     def open_description_in_browser(self):
         link = self.current_item['itemlink']
