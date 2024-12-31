@@ -33,6 +33,7 @@ CaaS,Containers as a Service,https://www.docker.com/blog/containers-as-a-service
 CAD,Computer-aided Design,https://en.wikipedia.org/wiki/Computer-aided_design
 CAM,Computer-Aided Manufacturing,https://en.wikipedia.org/wiki/Computer-aided_manufacturing
 CAPTCHA,Completely Automated Public Turing test to tell Computers and Humans Apart,https://en.wikipedia.org/wiki/CAPTCHA
+CCMP,Counter Mode CBC-MAC Protocol (WPA2),https://en.wikipedia.org/wiki/CCMP_(cryptography)
 CCTV,Closed Circuit Television,https://en.wikipedia.org/wiki/Closed-circuit_television
 CD,Compact Disc ,https://en.wikipedia.org/wiki/Compact_disc
 CDFS,Compact Disc File System,https://en.wikipedia.org/wiki/Compact_Disc_File_System
@@ -108,6 +109,7 @@ FTPS,File Transfer Protocol Secure (FTP with TLS),https://en.wikipedia.org/wiki/
 Gb,Gigabit,https://en.wikipedia.org/wiki/Gigabit_Ethernet
 GB,Gigabyte,https://en.wikipedia.org/wiki/Gigabyte
 Gbps,Gigabits per second,https://en.wikipedia.org/wiki/Data-rate_units#Gigabit_per_second
+GCMP,Galois/Counter Mode Protocol (WPA3),https://en.wikipedia.org/wiki/Galois/Counter_Mode
 GDDR,Graphics DDR [Double Data Rate],https://en.wikipedia.org/wiki/GDDR_SDRAM
 GDPR,General Data Protection Regulation (EU privacy),https://en.wikipedia.org/wiki/General_Data_Protection_Regulation
 GFS,Grandfather-Father-Son,https://en.wikipedia.org/wiki/Backup_rotation_scheme#Grandfather-father-son
@@ -250,6 +252,7 @@ RAM,Random-Access Memory ,https://en.wikipedia.org/wiki/Random-access_memory
 RDP,Remote Desktop Protocol (Windows),https://en.wikipedia.org/wiki/Remote_Desktop_Protocol
 ReFS,Resilient File System (Windows),https://en.wikipedia.org/wiki/ReFS
 RF,Radio Frequency,https://en.wikipedia.org/wiki/Radio_frequency
+RFB,Remote Frame Buffer,https://en.wikipedia.org/wiki/RFB_(protocol)
 RFI,Radio-Frequency Interference,https://en.wikipedia.org/wiki/Electromagnetic_interference
 RFID,Radio-Frequency Identification,https://en.wikipedia.org/wiki/Radio-frequency_identification
 RJ11,Registered Jack Function 11 (POTS),https://en.wikipedia.org/wiki/Registered_jack#RJ11
