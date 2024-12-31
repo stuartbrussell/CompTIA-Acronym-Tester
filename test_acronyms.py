@@ -159,16 +159,12 @@ class Root(tk.Tk):
 
     def set_manual_entry_mode(self, enabled):
         self.manual_entry_mode_enabled = enabled
+        widgets = [self.correct_answer_btn, self.next_btn,
+                   self.previous_btn, self.length_menu]
         if enabled:
-            self.correct_answer_btn.config(state=tk.DISABLED)
-            self.next_btn.config(state=tk.DISABLED)
-            self.previous_btn.config(state=tk.DISABLED)
-            self.length_menu.config(state=tk.DISABLED)
+            self.set_config_state(widgets, tk.DISABLED)
         else:
-            self.correct_answer_btn.config(state=tk.ACTIVE)
-            self.next_btn.config(state=tk.ACTIVE)
-            self.previous_btn.config(state=tk.ACTIVE)
-            self.length_menu.config(state=tk.ACTIVE)
+            self.set_config_state(widgets, tk.ACTIVE)
             self.set_current_item(self.items[self.current_item_index])
 
     def acronym_length_changed(self, _new_length):
@@ -321,6 +317,10 @@ class Root(tk.Tk):
             self.correct_answer_var.set(self.INCORRECT if self.correct_answer_var.get()
                                         == self.CORRECT else self.CORRECT)
         self.update_current_item_result()
+
+    def set_config_state(self, tk_widgets=[], state=tk.ACTIVE):
+        for widget in tk_widgets:
+            widget.config(state=state)
 
     def win_evt(self, event):
         match event.keysym:
