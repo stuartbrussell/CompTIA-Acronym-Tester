@@ -1,7 +1,6 @@
 import csv
 import tkinter as tk
 import random
-import sys
 import webbrowser
 
 
