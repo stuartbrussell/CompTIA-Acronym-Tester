@@ -12,6 +12,7 @@ udp/69,Trivial FTP
 tcp/80,HTTP
 tcp/110,POP3
 tcp/137,NetBIOS name services
+udp/138,NetBIOS datagram services
 tcp/139,NetBIOS session services
 tcp/143,IMAP
 udp/161,SNMP queries
@@ -20,6 +21,7 @@ tcp/389,LDAP
 tcp/443,HTTPS
 tcp/445,SMB
 tcp/3389,RDP (Windows)
+tcp/5900,RFB (VNC)
 udp/5004,VoIP
 FTP data,tcp/20
 FTP control,tcp/21
@@ -34,6 +36,7 @@ Trivial FTP,udp/69
 HTTP,tcp/80
 POP3,tcp/110
 NetBIOS name services,tcp/137
+NetBIOS datagram services,tcp/138
 NetBIOS session services,tcp/139
 IMAP,tcp/143
 SNMP queries,udp/161
@@ -42,4 +45,5 @@ LDAP,tcp/389
 HTTPS,tcp/443
 SMB,tcp/445
 RDP (Windows),tcp/3389
+RFB (VNC),tcp/5900
 VoIP,udp/5004
