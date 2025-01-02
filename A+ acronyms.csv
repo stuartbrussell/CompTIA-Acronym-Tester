@@ -100,8 +100,8 @@ FAT12,12-bit File Allocation Table,https://en.wikipedia.org/wiki/File_Allocation
 FAT16,16-bit File Allocation Table,https://en.wikipedia.org/wiki/File_Allocation_Table#FAT16
 FAT32,32-bit File Allocation Table,https://en.wikipedia.org/wiki/File_Allocation_Table#FAT32
 FCoE,Fibre Channel over Ethernet,https://en.wikipedia.org/wiki/Fibre_Channel_over_Ethernet
-FDE,"Full Disk Encryption (BitLocker, FileVault)","https://en.wikipedia.org/wiki/FileVault
-https://en.wikipedia.org/wiki/BitLocker"
+FDE,Full Disk Encryption (BitLocker),https://en.wikipedia.org/wiki/BitLocker
+FDE,Full Disk Encryption (FileVault),https://en.wikipedia.org/wiki/FileVault
 FOSS,Free and Open Source Software,https://en.wikipedia.org/wiki/Free_and_open-source_software
 FSB,Front-Side Bus (Intel based boards),https://en.wikipedia.org/wiki/Front-side_bus
 FTP,File Transfer Protocol,https://en.wikipedia.org/wiki/File_Transfer_Protocol
@@ -145,8 +145,8 @@ IOPS,Input/Output Operations Per Second,https://en.wikipedia.org/wiki/IOPS
 IoT,Internet of Things,https://en.wikipedia.org/wiki/Internet_of_things
 IP,Internet Protocol,https://en.wikipedia.org/wiki/Internet_Protocol
 IPSec,Internet Protocol Security ,https://en.wikipedia.org/wiki/IPsec
-IPS,Intrusion Prevention System or In-Plane Switching (LCD),"https://en.wikipedia.org/wiki/Intrusion_detection_system#Intrusion_prevention
-https://en.wikipedia.org/wiki/IPS_panel"
+IPS,Intrusion Prevention System,https://en.wikipedia.org/wiki/Intrusion_detection_system#Intrusion_prevention
+IPS,In-Plane Switching (LCD),https://en.wikipedia.org/wiki/IPS_panel
 IR,Infrared,https://en.wikipedia.org/wiki/Infrared
 IrDA,Infrared Data Association,https://en.wikipedia.org/wiki/Infrared_Data_Association
 IRP,Incident Response Plan ,https://en.wikipedia.org/wiki/Information_security#Incident_response_plans
@@ -157,8 +157,8 @@ IT,Information Technology,https://en.wikipedia.org/wiki/Information_technology
 ITX,"Information Technology eXtended (Mini-ITX, Nano-ITX, Pico-ITX, mobile-ITX)",https://en.wikipedia.org/wiki/Mini-ITX
 JBOD,Just A Bunch Of Disks (i.e. not RAID),https://en.wikipedia.org/wiki/Non-RAID_drive_architectures#JBOD
 Kb,Kilobit,https://en.wikipedia.org/wiki/Kilobit
-KB,Kilobyte or Knowledge Base,"https://en.wikipedia.org/wiki/Kilobyte
-https://en.wikipedia.org/wiki/Knowledge_base"
+KB,Kilobyte,https://en.wikipedia.org/wiki/Kilobyte
+KB,Knowledge Base,https://en.wikipedia.org/wiki/Knowledge_base
 Kbps,Kilobits per second,https://en.wikipedia.org/wiki/Data-rate_units#Kilobit_per_second
 KVM,Keyboard-Video-Mouse,https://en.wikipedia.org/wiki/KVM_switch
 L2TP,Layer 2 Tunneling Protocol,https://en.wikipedia.org/wiki/Layer_2_Tunneling_Protocol
@@ -169,9 +169,9 @@ LDAP,Lightweight Directory Access Protocol,https://en.wikipedia.org/wiki/Lightwe
 LEAP,Lightweight Extensible Authentication Protocol (Cisco),https://en.wikipedia.org/wiki/Lightweight_Extensible_Authentication_Protocol
 LED,Light-Emitting Diode,https://en.wikipedia.org/wiki/Light-emitting_diode
 LTE,Long Term Evolution,https://en.wikipedia.org/wiki/LTE_(telecommunication)
-MAC,Media Access Control/Mandatory Access Control/Message Authentication Code,"https://en.wikipedia.org/wiki/Medium_access_control
-https://en.wikipedia.org/wiki/Mandatory_access_control
-https://en.wikipedia.org/wiki/Message_authentication_code"
+MAC,Media Access Control,https://en.wikipedia.org/wiki/Medium_access_control
+MAC,Mandatory Access Control,https://en.wikipedia.org/wiki/Mandatory_access_control
+MAC,Message Authentication Code,https://en.wikipedia.org/wiki/Message_authentication_code
 MAM,Mobile Application Management ,https://en.wikipedia.org/wiki/Mobile_application_management
 MAN,Metropolitan Area Network,https://en.wikipedia.org/wiki/Metropolitan_area_network
 Mb,Megabit,https://en.wikipedia.org/wiki/Megabit
@@ -197,8 +197,8 @@ MSRA,Microsoft Remote Assistance (Quick Assist in Win 10 and later),https://en.w
 MTBF,Mean Time Between Failure,https://en.wikipedia.org/wiki/Mean_time_between_failures
 MX,Mail Exchange ,https://en.wikipedia.org/wiki/MX_record
 NAC,Network Access Control,https://en.wikipedia.org/wiki/Network_Access_Control
-NAS,Network Attached Storage/Network Access Server,"https://en.wikipedia.org/wiki/Network-attached_storage
-https://en.wikipedia.org/wiki/Network_Access_Server"
+NAS,Network Access Server,https://en.wikipedia.org/wiki/Network_Access_Server
+NAS,Network Attached Storage,https://en.wikipedia.org/wiki/Network-attached_storage
 NAT,Network Address Translation ,https://en.wikipedia.org/wiki/Network_address_translation
 NDA,Non-Disclosure Agreement,https://en.wikipedia.org/wiki/Non-disclosure_agreement
 NetBIOS,Networked Basic Input/Output System,https://en.wikipedia.org/wiki/NetBIOS
@@ -223,8 +223,8 @@ PAN,Personal Area Network,https://en.wikipedia.org/wiki/Personal_area_network
 PATA,Parallel Advanced Technology Attachment (== ATA),https://en.wikipedia.org/wiki/Parallel_ATA
 PB,Petabyte (KB * 10*5),https://en.wikipedia.org/wiki/Byte
 PC,Personal Computer,https://en.wikipedia.org/wiki/Personal_computer
-PCI,Peripheral Component Interconnect/Payment Card Industry,"https://en.wikipedia.org/wiki/Peripheral_Component_Interconnect
-https://en.wikipedia.org/wiki/Payment_card_industry"
+PCI,Payment Card Industry,https://en.wikipedia.org/wiki/Payment_card_industry
+PCI,Peripheral Component Interconnect/Payment Card Industry,https://en.wikipedia.org/wiki/Peripheral_Component_Interconnect
 PCIe,Peripheral Component Interconnect Express,https://en.wikipedia.org/wiki/PCI_Express
 PCI DSS,Payment Card Industry Data Security Standard,https://en.wikipedia.org/wiki/Payment_Card_Industry_Data_Security_Standard
 PCL,Printer Command Language,https://en.wikipedia.org/wiki/Printer_Command_Language
@@ -337,8 +337,8 @@ VA,Vertical Alignment (LCD),https://en.wikipedia.org/wiki/Liquid-crystal_display
 VDI,Virtual Desktop Infrastructure,https://en.wikipedia.org/wiki/Desktop_virtualization
 VGA,Video Graphics Array,https://en.wikipedia.org/wiki/Video_Graphics_Array
 VLAN,Virtual LAN,https://en.wikipedia.org/wiki/VLAN
-VM,Virtual Machine or Virtual Memory,"https://en.wikipedia.org/wiki/Virtual_machine
-https://en.wikipedia.org/wiki/Virtual_memory"
+VM,Virtual Machine,https://en.wikipedia.org/wiki/Virtual_machine
+VM,Virtual Memory,https://en.wikipedia.org/wiki/Virtual_memory
 VNC,Virtual Network Computing,https://en.wikipedia.org/wiki/Virtual_Network_Computing
 VoIP,Voice over Internet Protocol,https://en.wikipedia.org/wiki/Voice_over_IP
 VoLTE,Voice over Long Term Evolution,https://en.wikipedia.org/wiki/Voice_over_LTE
