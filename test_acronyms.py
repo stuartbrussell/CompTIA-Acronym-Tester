@@ -51,7 +51,9 @@ class AcronymTester(tk.Tk):
     ITEM_VALUES = 'itemvalues'
     ITEM_LINKS = 'itemlinks'
 
-    CSV_FILES = ['A+ acronyms']
+    # CSV_FILES = ['A+ acronyms']
+    CSV_FILES = ['Network+ N10-009 acronyms']
+    # CSV_FILES = ['A+ acronyms', 'Network+ N10-009 acronyms']
 
     def __init__(self):
         super().__init__()
