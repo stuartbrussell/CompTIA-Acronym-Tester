@@ -2,6 +2,7 @@ import csv
 import tkinter as tk
 import random
 import webbrowser
+import test_acronym_debug as debug
 
 '''
     Acronym memorization assistant. Reads values from cvs file(s) and presents each acronym one at a time, in random order. The expanded text for the acronym is hidden at first, but can be made visible to check the memorized answer. A Browse button opens Wikipedia to describe the acronym. Keeps a score of correct/incorrect answers. A review mode shows only acronyms that were remembered incorrectly. A count menu shows only acronyms that all have a certain length, e.g. 2 will show KB and IR, but not RADIUS.
@@ -37,7 +38,7 @@ import webbrowser
 '''
 
 
-class Root(tk.Tk):
+class AcronymTester(tk.Tk):
     CORRECT = True
     INCORRECT = False
     UNTESTED = None
@@ -125,6 +126,9 @@ class Root(tk.Tk):
         tk.Button(text='Browse', command=self.open_description_in_browser).grid(
             row=4, column=3, sticky='w')
 
+        self.debug_mode_enabled = False
+        self.debugger = None
+
         # Capture all unfocused keystrokes.
         self.bind('<Key>', self.win_evt)
 
@@ -175,8 +179,6 @@ class Root(tk.Tk):
                 last_converted[self.ITEM_VALUES] += [raw_value]
                 last_converted[self.ITEM_LINKS] += [raw_link]
 
-        for item in converted_items:
-            print(item)
         return converted_items
 
     def scan_items_for_acronym_lengths(self):
@@ -242,7 +244,7 @@ class Root(tk.Tk):
         if enabled:
             self.set_config_state(widgets, tk.DISABLED)
         else:
-            self.set_config_state(widgets, tk.ACTIVE)
+            self.set_config_state(widgets, tk.NORMAL)
             self.set_current_item(self.active_items[self.current_item_index])
 
     def acronym_length_changed(self, _new_length):
@@ -402,6 +404,13 @@ class Root(tk.Tk):
         for widget in tk_widgets:
             widget.config(state=state)
 
+    def toggle_debug_mode(self):
+        self.debug_mode_enabled = not self.debug_mode_enabled
+        if self.debug_mode_enabled:
+            self.debugger = debug.DebugWindow(self)
+        else:
+            self.debugger.destroy()
+
     def win_evt(self, event):
         match event.keysym:
             case 'Right' | 'Down':
@@ -415,8 +424,10 @@ class Root(tk.Tk):
                     self.set_manual_entry_mode(False)
                 else:
                     self.toggle_correct_answer(update_var=True)
+            case 'question':
+                self.toggle_debug_mode()
 
 
 if __name__ == "__main__":
-    root = Root()
+    root = AcronymTester()
     root.mainloop()
