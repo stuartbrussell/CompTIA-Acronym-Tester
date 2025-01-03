@@ -2,6 +2,7 @@ import csv
 import tkinter as tk
 import random
 import webbrowser
+import test_acronym_debug as debug
 
 '''
     Acronym memorization assistant. Reads values from cvs file(s) and presents each acronym one at a time, in random order. The expanded text for the acronym is hidden at first, but can be made visible to check the memorized answer. A Browse button opens Wikipedia to describe the acronym. Keeps a score of correct/incorrect answers. A review mode shows only acronyms that were remembered incorrectly. A count menu shows only acronyms that all have a certain length, e.g. 2 will show KB and IR, but not RADIUS.
@@ -124,6 +125,9 @@ class AcronymTester(tk.Tk):
         self.review_mode_btn.grid(row=4, column=2)
         tk.Button(text='Browse', command=self.open_description_in_browser).grid(
             row=4, column=3, sticky='w')
+
+        self.debug_mode_enabled = False
+        self.debugger = None
 
         # Capture all unfocused keystrokes.
         self.bind('<Key>', self.win_evt)
@@ -400,6 +404,13 @@ class AcronymTester(tk.Tk):
         for widget in tk_widgets:
             widget.config(state=state)
 
+    def toggle_debug_mode(self):
+        self.debug_mode_enabled = not self.debug_mode_enabled
+        if self.debug_mode_enabled:
+            self.debugger = debug.DebugWindow(self)
+        else:
+            self.debugger.destroy()
+
     def win_evt(self, event):
         match event.keysym:
             case 'Right' | 'Down':
@@ -413,6 +424,8 @@ class AcronymTester(tk.Tk):
                     self.set_manual_entry_mode(False)
                 else:
                     self.toggle_correct_answer(update_var=True)
+            case 'question':
+                self.toggle_debug_mode()
 
 
 if __name__ == "__main__":
