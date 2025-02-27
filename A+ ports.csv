@@ -11,39 +11,57 @@ udp/68,DHCP Offer and Acknowledge (broadcast)
 udp/69,Trivial FTP
 tcp/80,HTTP
 tcp/110,POP3
+udp/123,NTP
 tcp/137,NetBIOS name services
 udp/138,NetBIOS datagram services
 tcp/139,NetBIOS session services
 tcp/143,IMAP
 udp/161,SNMP queries
 udp/162,SNMP traps
+tcp/179,BGP
 tcp/389,LDAP
 tcp/443,HTTPS
 tcp/445,SMB
+udp/514,Syslog
+tcp/587,SMTP with TLS
+tcp/636,LDAPS
+tcp/1433,MS-SQL
 tcp/3389,RDP (Windows)
-tcp/5900,RFB (VNC)
+udp/4789,VXLAN
 udp/5004,VoIP
-FTP data,tcp/20
-FTP control,tcp/21
-SSH,tcp/22
-Telnet,tcp/23
-SMTP,tcp/25
-TACACS,tcp/49
-DNS,udp/53
+tcp/5060,SIP
+tcp/5061,SIP overTLS
+tcp/5900,RFB (VNC)
+BGP,tcp/179
 DHCP Discover and Request (broadcast),udp/67
 DHCP Offer and Acknowledge (broadcast),udp/68
-Trivial FTP,udp/69
+DNS,udp/53
+FTP control,tcp/21
+FTP data,tcp/20
 HTTP,tcp/80
-POP3,tcp/110
-NetBIOS name services,tcp/137
-NetBIOS datagram services,tcp/138
-NetBIOS session services,tcp/139
-IMAP,tcp/143
-SNMP queries,udp/161
-SNMP traps,udp/162
-LDAP,tcp/389
 HTTPS,tcp/443
-SMB,tcp/445
+IMAP,tcp/143
+LDAP,tcp/389
+LDAPS,tcp/636
+MS-SQL,tcp/1443
+NetBIOS datagram services,tcp/138
+NetBIOS name services,tcp/137
+NetBIOS session services,tcp/139
+NTP,udp/123
+POP3,tcp/110
 RDP (Windows),tcp/3389
 RFB (VNC),tcp/5900
+SIP,tcp/5060
+SIP over TLS,tcp/5061
+SMB,tcp/445
+SMTP,tcp/25
+SMTP with TLS,tcp/587
+SNMP queries,udp/161
+SNMP traps,udp/162
+SSH,tcp/22
+Syslog,udp/514
+TACACS,tcp/49
+Telnet,tcp/23
+Trivial FTP,udp/69
 VoIP,udp/5004
+VXLAN,udp/4789

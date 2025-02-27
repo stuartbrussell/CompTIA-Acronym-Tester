@@ -9,7 +9,8 @@ ARP,Address Resolution Protocol,https://en.wikipedia.org/wiki/Address_Resolution
 AUP,Acceptable Use Policy,https://en.wikipedia.org/wiki/Acceptable_use_policy
 BGP,Border Gateway Protocol,https://en.wikipedia.org/wiki/Border_Gateway_Protocol
 BNC,Bayonet Neill–Concelman,https://en.wikipedia.org/wiki/BNC_connector
-BSSID,Basic Service Set Identifier,https://en.wikipedia.org/wiki/Service_set_(802.11_network)#Basic_service_set_types
+BPDU,Bridge Protocol Data Unit,https://en.wikipedia.org/wiki/Spanning_Tree_Protocol#Bridge_protocol_data_units
+BSSID,Basic Service Set Identifier,https://en.wikipedia.org/wiki/Service_set_(802.11_network)
 BYOD,Bring Your Own Device,https://en.wikipedia.org/wiki/Bring_your_own_device
 CAM,Content-Addressable Memory,https://en.wikipedia.org/wiki/Content-addressable_memory
 CDN,Content Delivery Network,https://en.wikipedia.org/wiki/Content_delivery_network
@@ -40,6 +41,7 @@ ESP,Encapsulating Security Payload,https://en.wikipedia.org/wiki/IPsec#Encapsula
 ESSID,Extended Service Set Identifier,https://en.wikipedia.org/wiki/Service_set_(802.11_network)#Extended_service_set
 EULA,End-User License Agreement,https://en.wikipedia.org/wiki/End-user_license_agreement
 FC,Fibre Channel,https://en.wikipedia.org/wiki/Fibre_Channel
+FEP,Flourinated Ethylene Polymer,https://en.wikipedia.org/wiki/Plenum_cable
 FHRP,First Hop Redundancy Protocol,https://en.wikipedia.org/wiki/First-hop_redundancy_protocol
 FTP,File Transfer Protocol,https://en.wikipedia.org/wiki/File_Transfer_Protocol
 GDPR,General Data Protection Regulation (EU privacy),https://en.wikipedia.org/wiki/General_Data_Protection_Regulation
@@ -50,6 +52,7 @@ HTTPS,Hypertext Transfer Protocol Secure,https://en.wikipedia.org/wiki/HTTPS
 IaaS,Infrastructure as a Service,https://en.wikipedia.org/wiki/Infrastructure_as_a_service
 IaC,Infrastructure as Code,https://en.wikipedia.org/wiki/Infrastructure_as_code
 IAM,Identity and Access Management,https://en.wikipedia.org/wiki/Identity_and_access_management
+IBSS,Independent Basic Service Set,https://en.wikipedia.org/wiki/Service_set_(802.11_network)#Independent
 ICMP,Internet Control Message Protocol,https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol
 ICS,Industrial Control System,https://en.wikipedia.org/wiki/Industrial_control_system
 IDF,Intermediate Distribution Frame,https://en.wikipedia.org/wiki/Intermediate_distribution_frame
@@ -87,6 +90,7 @@ NIC,Network Interface Card,https://en.wikipedia.org/wiki/Network_interface_contr
 NS,Name Server,https://en.wikipedia.org/wiki/Name_server
 NTP,Network Time Protocol,https://en.wikipedia.org/wiki/Network_Time_Protocol
 NTS,Network Time Security,https://en.wikipedia.org/wiki/Network_Time_Protocol#Secure_extensions
+OID,Object Identifier,
 OS,Operating System,https://en.wikipedia.org/wiki/Operating_system
 OSPF,Open Shortest Path First,https://en.wikipedia.org/wiki/Open_Shortest_Path_First
 OSI,Open Systems Interconnection,https://en.wikipedia.org/wiki/OSI_model
@@ -114,11 +118,11 @@ RX,Receiver,https://en.wikipedia.org/wiki/Telecommunications#Basic_elements
 SaaS,Software as a Service,https://en.wikipedia.org/wiki/Software_as_a_service
 SAML,Security Assertion Markup Language,https://en.wikipedia.org/wiki/Security_Assertion_Markup_Language
 SAN,Storage Area Network,https://en.wikipedia.org/wiki/Storage_area_network
-SASE,Secure Access Service Edge,https://en.wikipedia.org/wiki/Secure_access_service_edge
+SASE,Secure Access Server Edge,https://en.wikipedia.org/wiki/Secure_access_service_edge
 SC,Subscriber Connector (Fiber Optic),https://en.wikipedia.org/wiki/Optical_fiber_connector
 SCADA,Supervisory Control And Data Acquisition,https://en.wikipedia.org/wiki/SCADA
 SDN,Software-Defined Networking,https://en.wikipedia.org/wiki/Software-defined_networking
-SD-WAN,Software-defined Wide Area Network,https://en.wikipedia.org/wiki/SD-WAN
+SD-WAN,Software-Defined Wide Area Network,https://en.wikipedia.org/wiki/SD-WAN
 SFP,Small Form-factor Pluggable,https://en.wikipedia.org/wiki/Small_Form-factor_Pluggable
 SFTP,SSH File Transfer Protocol,https://en.wikipedia.org/wiki/SSH_File_Transfer_Protocol
 SIP,Session Initiation Protocol,https://en.wikipedia.org/wiki/Session_Initiation_Protocol
@@ -138,6 +142,7 @@ SSL,Secure Sockets Layer,"https://en.wikipedia.org/wiki/Transport_Layer_Security
 SSO,Single Sign-On,https://en.wikipedia.org/wiki/Single_sign-on
 ST,Straight Tip (Fiber Optic),https://en.wikipedia.org/wiki/Optical_fiber_connector
 STP,Shielded Twisted Pair,https://en.wikipedia.org/wiki/Twisted_pair
+STP,Spanning Tree Protocol,https://en.wikipedia.org/wiki/Spanning_Tree_Protocol
 SVI,Switch Virtual Interface,https://en.wikipedia.org/wiki/Switch_virtual_interface
 TACAS+,Terminal Access Controller Access Control System Plus,https://en.wikipedia.org/wiki/TACACS
 TCP,Transmission Control Protocol,https://en.wikipedia.org/wiki/Transmission_Control_Protocol
