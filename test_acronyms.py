@@ -3,6 +3,8 @@ import tkinter as tk
 import random
 import webbrowser
 import test_acronym_debug as debug
+import os
+import platform
 
 '''
     Acronym memorization assistant. Reads values from cvs file(s) and presents each acronym one at a time, in random order. The expanded text for the acronym is hidden at first, but can be made visible to check the memorized answer. A Browse button opens Wikipedia to describe the acronym. Keeps a score of correct/incorrect answers. A review mode shows only acronyms that were remembered incorrectly. A count menu shows only acronyms that all have a certain length, e.g. 2 will show KB and IR, but not RADIUS.
@@ -18,23 +20,29 @@ import test_acronym_debug as debug
     The list of raw cvs rows is loaded as a list of dictionaries:
           {'itemkey': string, 'itemvalue': string, 'itemlink': string}
 
-    The way acronyms are presented for learning, itemkey (i.e. acronym) needs to be unique. But the same acronym may appear in one or more files. To handle duplicate acronyms with identical text and link, the duplicate dictionaries are discarded. To handle duplicate acronyms with distinct text and link, itemvalue and itemlink are each converted to lists with one or more strings.
+    Acronyms are presented for learning one at a time. When learning multiple CompTIA exams, the user can load multiple cvs files. However, there are sometimes duplicate itemkeys across all loaded cvs files. In each scenario, all items from all active cvs files are scanned for duplicates after loading. Duplicates can happen in two scenarios. 
+        1. Duplicate itemkey with EQUAL itemvalue: Different CompTIA tests may have the same acronym with the same meaning, so the same itemkey/itemvalue pair may appear in multiple cvs files. In this scenario, the code will simply discard the duplicate items.
+        2. Duplicate itemkey with UNEQUAL itemvalue: Different CompTIA tests may have the same acronym with different meaning. Even in one test (i.e. one cvs file) there may be an acronym with multiple meanings. In this scenario, the itemvalue and itemlink are combined as lists in a single dictionary for the acronym. For display during learning, the itemvalues are shown as multiple stacked strings. When the user clicks the Browse button, multiple web pages will load in the browser.
     
-    For example, the four cvs rows:
+    For example, four cvs rows in one or more cvs files, might have one duplicate acronym with equal itemvalue, and one duplicate acronym with unequal itemvalue:
         Kb,Kilobit,https://en.wikipedia.org/wiki/Kilobit
         Kb,Kilobit,https://en.wikipedia.org/wiki/Kilobit
         KB,Kilobyte,https://en.wikipedia.org/wiki/Kilobyte
         KB,Knowledge Base,https://en.wikipedia.org/wiki/Knowledge_base
 
-    are loaded as a list of four dictionaries:
-        [{'itemkey': 'Kb', 'itemvalue': 'Kilobit', 'itemlink': 'https://en.wikipedia.org/wiki/Kilobit'},
+    These are loaded from the cvs files as a raw list of four dictionaries:
+    [
+        {'itemkey': 'Kb', 'itemvalue': 'Kilobit', 'itemlink': 'https://en.wikipedia.org/wiki/Kilobit'},
         {'itemkey': 'Kb', 'itemvalue': 'Kilobit', 'itemlink': 'https://en.wikipedia.org/wiki/Kilobit'},
         {'itemkey': 'KB', 'itemvalue': 'Kilobyte', 'itemlink': 'https://en.wikipedia.org/wiki/Kilobyte'},
-        {'itemkey': 'KB', 'itemvalue': 'Knowledge Base', 'itemlink': 'https://en.wikipedia.org/wiki/Knowledge_base'}]
+        {'itemkey': 'KB', 'itemvalue': 'Knowledge Base', 'itemlink': 'https://en.wikipedia.org/wiki/Knowledge_base'}
+    ]
 
-    These are converted to two dictionaries in the final list:
-        [{'itemkey': 'Kb', 'itemvalues': ['Kilobit'], 'itemlinks': ['https://en.wikipedia.org/wiki/Kilobit]'},
-        {'itemkey': 'KB', 'itemvalues': ['Kilobyte', 'Knowledge Base'], 'itemlinks': ['https://en.wikipedia.org/wiki/Kilobyte', 'https://en.wikipedia.org/wiki/Knowledge_base']}] 
+    They are then converted to two dictionaries in the final list in memory:
+    [
+        {'itemkey': 'Kb', 'itemvalues': ['Kilobit'], 'itemlinks': ['https://en.wikipedia.org/wiki/Kilobit]'},
+        {'itemkey': 'KB', 'itemvalues': ['Kilobyte', 'Knowledge Base'], 'itemlinks': ['https://en.wikipedia.org/wiki/Kilobyte', 'https://en.wikipedia.org/wiki/Knowledge_base']}
+    ] 
 '''
 
 
@@ -51,13 +59,19 @@ class AcronymTester(tk.Tk):
     ITEM_VALUES = 'itemvalues'
     ITEM_LINKS = 'itemlinks'
 
-    # CSV_FILES = ['A+ acronyms']
-    CSV_FILES = ['Network+ N10-009 acronyms']
-    # CSV_FILES = ['A+ acronyms', 'Network+ N10-009 acronyms']
+    # Constant containing all possible csv file names.
+    ALL_CSV_FILES = [
+        'A+ acronyms',
+        'Network+ N10-009 acronyms',
+        'A+ ports',
+    ]
+    # Runtime subset of all csv files. Selected in the debug window.
+    CURRENT_CSV_FILES = set([])
 
     def __init__(self):
         super().__init__()
 
+        self.lift()
         self.all_items = []
         self.active_items = []
         self.current_item_index = -1
@@ -68,7 +82,9 @@ class AcronymTester(tk.Tk):
         # The results list is the same length as the items list.
         self.results = []
 
-        # set window size and center window on screen
+        self.title('Acronym Tester')
+
+       # set window size and center window on screen
         window_width = 500
         window_height = 200
         screen_width = self.winfo_screenwidth()
@@ -325,7 +341,9 @@ class AcronymTester(tk.Tk):
         return found_index
 
     def start_test(self):
-        sorted_raw_items = self.load_and_sort(self.CSV_FILES)
+        if len(self.CURRENT_CSV_FILES) == 0:
+            return
+        sorted_raw_items = self.load_and_sort(self.CURRENT_CSV_FILES)
         self.all_items = self.process_duplicate_acronyms(sorted_raw_items)
         random.shuffle(self.all_items)
         self.update_length_menu()
@@ -406,10 +424,19 @@ class AcronymTester(tk.Tk):
         for widget in tk_widgets:
             widget.config(state=state)
 
+    def enable_csv_file(self, file_name, enable):
+        print(file_name, enable)
+        if enable and not file_name in self.CURRENT_CSV_FILES:
+            self.CURRENT_CSV_FILES.add(file_name)
+        elif file_name in self.CURRENT_CSV_FILES:
+            self.CURRENT_CSV_FILES.remove(file_name)
+        self.start_test()
+
     def toggle_debug_mode(self):
         self.debug_mode_enabled = not self.debug_mode_enabled
         if self.debug_mode_enabled:
-            self.debugger = debug.DebugWindow(self)
+            self.debugger = debug.DebugWindow(
+                self, self.ALL_CSV_FILES, self.enable_csv_file)
         else:
             self.debugger.destroy()
 
@@ -429,7 +456,19 @@ class AcronymTester(tk.Tk):
             case 'question':
                 self.toggle_debug_mode()
 
+    def bring_app_to_front(self):
+        if "Darwin" in platform.system():
+            script = 'tell application "System Events" to set frontmost of the first process whose unix id is {pid} to true'.format(
+                pid=os.getpid())
+            os.system("/usr/bin/osascript -e '{script}'".format(script=script))
+        else:
+            self.lift()
+            # root.attributes('-topmost', True)
+            # root.update()
+            # root.attributes('-topmost', False)
+
 
 if __name__ == "__main__":
     root = AcronymTester()
+    root.bring_app_to_front()
     root.mainloop()
