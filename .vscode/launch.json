@@ -10,6 +10,13 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal"
+        },
+        {
+            "name": "Debug Test Acronyms",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "./test_acronyms.py",
+            "console": "integratedTerminal"
         }
     ]
 }
