@@ -2,7 +2,7 @@ import tkinter as tk
 
 
 class DebugWindow(tk.Toplevel):
-    def __init__(self, master, csv_file_names, enable_csv_file):
+    def __init__(self, master, all_csv_file_names, current_cvs_file_names, enable_csv_file):
         super().__init__()
 
         self.master = master
@@ -17,18 +17,25 @@ class DebugWindow(tk.Toplevel):
         self.geometry(f"{window_width}x{
                       window_height}+{window_ul_x}+{window_ul_y}")
 
-        # Row 0
+        # Column 0
         tk.Button(self, text='Print Duplicate Acronyms',
-                  command=self.print_duplicate_acronyms).grid()
+                  command=self.print_duplicate_acronyms).grid(row=0, column=0)
 
         tk.Button(self, text='Print Trailing Spaces',
-                  command=self.print_trailing_spaces).grid()
+                  command=self.print_trailing_spaces).grid(row=1, column=0)
 
-        for i in range(len(csv_file_names)):
-            btn = tk.Checkbutton(self, text=csv_file_names[i])
+        # Column 1
+        for i in range(len(all_csv_file_names)):
+            file_name = all_csv_file_names[i]
+            btn = tk.Checkbutton(self, text=file_name)
             btn.bind('<ButtonRelease>', self.csv_file_checked)
-            btn.grid(row=i, column=2, sticky='w')
+            btn.grid(row=i, column=1, sticky='w')
 
+            # When the window opens, pre-set each checkbox to match current.
+            is_current = file_name in current_cvs_file_names
+            btn.select() if is_current else btn.deselect()
+
+        # When the user closes this window, tell our owner.
         self.protocol('WM_DELETE_WINDOW', master.toggle_debug_mode)
 
         # Capture all unfocused keystrokes.

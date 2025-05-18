@@ -66,7 +66,7 @@ class AcronymTester(tk.Tk):
         'A+ ports',
     ]
     # Runtime subset of all csv files. Selected in the debug window.
-    CURRENT_CSV_FILES = set([])
+    current_cvs_files = set([])
 
     def __init__(self):
         super().__init__()
@@ -341,9 +341,9 @@ class AcronymTester(tk.Tk):
         return found_index
 
     def start_test(self):
-        if len(self.CURRENT_CSV_FILES) == 0:
+        if len(self.current_cvs_files) == 0:
             return
-        sorted_raw_items = self.load_and_sort(self.CURRENT_CSV_FILES)
+        sorted_raw_items = self.load_and_sort(self.current_cvs_files)
         self.all_items = self.process_duplicate_acronyms(sorted_raw_items)
         random.shuffle(self.all_items)
         self.update_length_menu()
@@ -426,17 +426,21 @@ class AcronymTester(tk.Tk):
 
     def enable_csv_file(self, file_name, enable):
         print(file_name, enable)
-        if enable and not file_name in self.CURRENT_CSV_FILES:
-            self.CURRENT_CSV_FILES.add(file_name)
-        elif file_name in self.CURRENT_CSV_FILES:
-            self.CURRENT_CSV_FILES.remove(file_name)
+        if enable:
+            self.current_cvs_files.add(file_name)
+        elif file_name in self.current_cvs_files:
+            self.current_cvs_files.remove(file_name)
         self.start_test()
 
     def toggle_debug_mode(self):
         self.debug_mode_enabled = not self.debug_mode_enabled
         if self.debug_mode_enabled:
             self.debugger = debug.DebugWindow(
-                self, self.ALL_CSV_FILES, self.enable_csv_file)
+                self,
+                self.ALL_CSV_FILES,
+                self.current_cvs_files,
+                self.enable_csv_file
+            )
         else:
             self.debugger.destroy()
 
@@ -463,9 +467,6 @@ class AcronymTester(tk.Tk):
             os.system("/usr/bin/osascript -e '{script}'".format(script=script))
         else:
             self.lift()
-            # root.attributes('-topmost', True)
-            # root.update()
-            # root.attributes('-topmost', False)
 
 
 if __name__ == "__main__":
