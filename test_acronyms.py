@@ -381,6 +381,8 @@ class AcronymTester(tk.Tk):
         self.show_itemkey()
 
     def update_current_item_result(self):
+        if len(self.results) == 0:
+            return
         self.results[self.current_item_index] = self.CORRECT if self.correct_answer_var.get(
         ) else self.INCORRECT
         if self.INCORRECT in self.results:
