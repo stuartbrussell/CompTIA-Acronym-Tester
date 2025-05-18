@@ -263,7 +263,10 @@ class AcronymTester(tk.Tk):
             self.set_config_state(widgets, tk.DISABLED)
         else:
             self.set_config_state(widgets, tk.NORMAL)
-            self.set_current_item(self.active_items[self.current_item_index])
+            self.set_current_item(
+                self.active_items[self.current_item_index] if len(
+                    self.active_items) > 0 else ''
+            )
 
     def acronym_length_changed(self, _new_length):
         self.filter_items_and_show_first()
@@ -341,8 +344,6 @@ class AcronymTester(tk.Tk):
         return found_index
 
     def start_test(self):
-        if len(self.current_cvs_files) == 0:
-            return
         sorted_raw_items = self.load_and_sort(self.current_cvs_files)
         self.all_items = self.process_duplicate_acronyms(sorted_raw_items)
         random.shuffle(self.all_items)
