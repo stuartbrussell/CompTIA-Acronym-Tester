@@ -353,6 +353,8 @@ class AcronymTester(tk.Tk):
         self.set_manual_entry_mode(False)
 
     def open_description_in_browser(self):
+        if len(self.current_item) == 0:
+            return
         links = self.current_item[self.ITEM_LINKS]
         if links:
             for alink in links:
