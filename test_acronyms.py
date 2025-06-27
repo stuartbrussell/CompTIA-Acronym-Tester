@@ -462,8 +462,9 @@ class AcronymTester(tk.Tk):
                     self.set_manual_entry_mode(False)
                 else:
                     self.toggle_correct_answer(update_var=True)
-            case 'question':
-                self.toggle_debug_mode()
+            case 'comma':
+                if event.state in [4, 8]:
+                    self.toggle_debug_mode()
 
     def bring_app_to_front(self):
         if "Darwin" in platform.system():
