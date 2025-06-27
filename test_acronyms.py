@@ -430,7 +430,6 @@ class AcronymTester(tk.Tk):
             widget.config(state=state)
 
     def enable_csv_file(self, file_name, enable):
-        print(file_name, enable)
         if enable:
             self.current_cvs_files.add(file_name)
         elif file_name in self.current_cvs_files:
