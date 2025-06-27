@@ -467,6 +467,8 @@ class AcronymTester(tk.Tk):
                     self.toggle_debug_mode()
 
     def bring_app_to_front(self):
+        # Make sure the app window is in front when the app launches.
+        # https://stackoverflow.com/questions/8691655/how-to-put-a-tkinter-window-on-top-of-the-others
         if "Darwin" in platform.system():
             script = 'tell application "System Events" to set frontmost of the first process whose unix id is {pid} to true'.format(
                 pid=os.getpid())
