@@ -265,7 +265,7 @@ class AcronymTester(tk.Tk):
             self.set_config_state(widgets, tk.NORMAL)
             self.set_current_item(
                 self.active_items[self.current_item_index] if len(
-                    self.active_items) > 0 else ''
+                    self.active_items) > 0 else None
             )
 
     def acronym_length_changed(self, _new_length):
@@ -353,6 +353,8 @@ class AcronymTester(tk.Tk):
         self.set_manual_entry_mode(False)
 
     def open_description_in_browser(self):
+        if self.current_item == None:
+            return
         if len(self.current_item) == 0:
             return
         links = self.current_item[self.ITEM_LINKS]
