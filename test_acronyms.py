@@ -165,8 +165,9 @@ class AcronymTester(tk.Tk):
             with open(file_name + '.csv') as csv_file:
                 csv_items += [item for item in csv.DictReader(csv_file)]
         value_sorted = sorted(
-            csv_items, key=lambda item: item[self.ITEM_VALUE])
-        key_sorted = sorted(value_sorted, key=lambda item: item[self.ITEM_KEY])
+            csv_items, key=lambda item: item[self.ITEM_VALUE].lower())
+        key_sorted = sorted(
+            value_sorted, key=lambda item: item[self.ITEM_KEY].lower())
         return key_sorted
 
     def process_duplicate_acronyms(self, sorted_raw_items):
@@ -184,7 +185,7 @@ class AcronymTester(tk.Tk):
             last_converted = converted_items[-1] if len(
                 converted_items) > 0 else None
 
-            if last_converted is None or raw_key != last_converted[self.ITEM_KEY]:
+            if last_converted is None or raw_key.lower() != last_converted[self.ITEM_KEY].lower():
                 # It's a unique acronym, the most common case.
                 converted_items += [{self.ITEM_KEY: raw_key,
                                      self.ITEM_VALUES: [raw_value],
