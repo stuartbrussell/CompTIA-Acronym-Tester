@@ -72,10 +72,12 @@ LDAP,Lightweight Directory Access Protocol,https://en.wikipedia.org/wiki/Lightwe
 LDAPS,Lightweight Directory Access Protocol over SSL,https://en.wikipedia.org/wiki/Lightweight_Directory_Access_Protocol#StartTLS
 LLDP,Link Layer Discovery Protocol,https://en.wikipedia.org/wiki/Link_Layer_Discovery_Protocol
 MAC,Media Access Control,https://en.wikipedia.org/wiki/Medium_access_control
+MAC,Message Authentication Code,https://en.wikipedia.org/wiki/Message_authentication_code
 MDF,Main Distribution Frame,https://en.wikipedia.org/wiki/Main_distribution_frame
 MDIX,Medium Dependent Interface Crossover,https://en.wikipedia.org/wiki/Medium-dependent_interface
 MFA,Multifactor Authentication,https://en.wikipedia.org/wiki/Multi-factor_authentication
 MIB,Management Information Base,https://en.wikipedia.org/wiki/Management_information_base
+MIC,Message Integrity Code (prefer Message Authentication Code),https://en.wikipedia.org/wiki/Message_authentication_code
 MPO,Multifiber Push On (Fiber Optic),https://en.wikipedia.org/wiki/Optical_fiber_connector
 MTBF,Mean Time Between Failure,https://en.wikipedia.org/wiki/Mean_time_between_failures
 MTTR,Mean Time To Recovery,https://en.wikipedia.org/wiki/Mean_time_to_recovery
