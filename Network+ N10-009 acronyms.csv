@@ -110,6 +110,7 @@ QoS,Quality of Service,https://en.wikipedia.org/wiki/Quality_of_service
 QSFP,Quad Small Form-factor Pluggable,https://en.wikipedia.org/wiki/Small_Form-factor_Pluggable#QSFP
 RADIUS,Remote Authentication Dial-In User Service,https://en.wikipedia.org/wiki/RADIUS
 RDP,Remote Desktop Protocol (Windows),https://en.wikipedia.org/wiki/Remote_Desktop_Protocol
+RFB,Remote Frame Buffer (VNC),https://en.wikipedia.org/wiki/RFB_(protocol)
 RFID,Radio-Frequency Identification,https://en.wikipedia.org/wiki/Radio-frequency_identification
 RIP,Routing Information Protocol,https://en.wikipedia.org/wiki/Routing_Information_Protocol
 RJ,Registered Jack,https://en.wikipedia.org/wiki/Registered_jack
@@ -146,7 +147,7 @@ ST,Straight Tip (Fiber Optic),https://en.wikipedia.org/wiki/Optical_fiber_connec
 STP,Shielded Twisted Pair,https://en.wikipedia.org/wiki/Twisted_pair
 STP,Spanning Tree Protocol,https://en.wikipedia.org/wiki/Spanning_Tree_Protocol
 SVI,Switch Virtual Interface,https://en.wikipedia.org/wiki/Switch_virtual_interface
-TACAS+,Terminal Access Controller Access Control System Plus,https://en.wikipedia.org/wiki/TACACS
+TACACS+,Terminal Access Controller Access Control System Plus,https://en.wikipedia.org/wiki/TACACS
 TCP,Transmission Control Protocol,https://en.wikipedia.org/wiki/Transmission_Control_Protocol
 TFTP,Trivial File Transfer Protocol,https://en.wikipedia.org/wiki/Trivial_File_Transfer_Protocol
 TLS,Transport Layer Security,https://en.wikipedia.org/wiki/Transport_Layer_Security
@@ -162,6 +163,7 @@ UTP,Unshielded Twisted Pair,https://en.wikipedia.org/wiki/Twisted_pair#Unshielde
 VIP,Virtual IP,https://en.wikipedia.org/wiki/Virtual_IP_address
 VLAN,Virtual LAN,https://en.wikipedia.org/wiki/VLAN
 VLSM,Variable Length Subnet Mask,https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#VLSM
+VNC,Virtual Network Computing,https://en.wikipedia.org/wiki/VNC
 VoIP,Voice over Internet Protocol,https://en.wikipedia.org/wiki/Voice_over_IP
 VPC,Virtual Private Cloud,https://en.wikipedia.org/wiki/Virtual_private_cloud
 VPN,Virtual Private Network,https://en.wikipedia.org/wiki/Virtual_private_network
