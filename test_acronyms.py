@@ -464,7 +464,7 @@ class AcronymTester(tk.Tk):
                     self.set_manual_entry_mode(False)
                 else:
                     self.toggle_correct_answer(update_var=True)
-            case 'comma':
+            case 'comma' | ',':
                 if event.state in [4, 8]:
                     self.toggle_debug_mode()
 
