@@ -457,7 +457,7 @@ class AcronymTester(tk.Tk):
                 self.next_item()
             case 'Left' | 'Up':
                 self.prev_item()
-            case 'space':
+            case 'space' | 'Return':
                 self.toggle_itemvalue()
             case 'Escape':
                 if self.manual_entry_mode_enabled:
