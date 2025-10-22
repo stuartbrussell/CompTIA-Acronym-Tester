@@ -2,11 +2,13 @@ import tkinter as tk
 
 
 class DebugWindow(tk.Toplevel):
-    def __init__(self, master, all_csv_file_names, current_cvs_file_names, enable_csv_file):
+    def __init__(self, master, all_csv_file_names, current_cvs_file_names, enable_csv_file, current_strict_mode, set_strict_mode):
         super().__init__()
 
         self.master = master
         self.enable_csv_file = enable_csv_file
+        self.strict_mode = current_strict_mode
+        self.set_strict_mode = set_strict_mode
         self.title('Acronym Tester Debugger')
 
         # set window size and near to master window
@@ -24,7 +26,12 @@ class DebugWindow(tk.Toplevel):
         tk.Button(self, text='Print Trailing Spaces',
                   command=self.print_trailing_spaces).grid(row=1, column=0)
 
-        # Column 1
+        strict_mode_cb = tk.Checkbutton(self, text='Strict Mode')
+        strict_mode_cb.bind('<ButtonRelease>', self.strict_mode_checked)
+        strict_mode_cb.grid(row=2, column=0, sticky='w')
+        strict_mode_cb.select() if current_strict_mode else strict_mode_cb.deselect()
+
+       # Column 1
         for i in range(len(all_csv_file_names)):
             file_name = all_csv_file_names[i]
             btn = tk.Checkbutton(self, text=file_name)
@@ -43,10 +50,16 @@ class DebugWindow(tk.Toplevel):
 
     def csv_file_checked(self, event):
         csv_file_name = event.widget.cget('text')
-        # the variable contains the state _before_ the widget was clicked
+        # the event contains the state _before_ the widget was clicked
         enabled = '0' == event.widget.getvar(
             event.widget.cget('variable'))
         self.enable_csv_file(csv_file_name, enabled)
+
+    def strict_mode_checked(self, event):
+        # the event contains the state _before_ the widget was clicked
+        use_strict_mode = '0' == event.widget.getvar(
+            event.widget.cget('variable'))
+        self.set_strict_mode(use_strict_mode)
 
     def print_duplicate_acronyms(self):
         print('print_duplicate_acronyms')

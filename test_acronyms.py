@@ -18,24 +18,24 @@ import platform
     acronymN         expanded text   link to wikipedia or other web description
 
     The list of raw cvs rows is loaded as a list of dictionaries:
-          {'itemkey': string, 'itemvalue': string, 'itemlink': string}
+          {'itemkey': string, 'itemvalue': string, 'itemlink': string, 'strict': string}
 
     Acronyms are presented for learning one at a time. When learning multiple CompTIA exams, the user can load multiple cvs files. However, there are sometimes duplicate itemkeys across all loaded cvs files. In each scenario, all items from all active cvs files are scanned for duplicates after loading. Duplicates can happen in two scenarios. 
         1. Duplicate itemkey with EQUAL itemvalue: Different CompTIA tests may have the same acronym with the same meaning, so the same itemkey/itemvalue pair may appear in multiple cvs files. In this scenario, the code will simply discard the duplicate items.
         2. Duplicate itemkey with UNEQUAL itemvalue: Different CompTIA tests may have the same acronym with different meaning. Even in one test (i.e. one cvs file) there may be an acronym with multiple meanings. In this scenario, the itemvalue and itemlink are combined as lists in a single dictionary for the acronym. For display during learning, the itemvalues are shown as multiple stacked strings. When the user clicks the Browse button, multiple web pages will load in the browser.
     
     For example, four cvs rows in one or more cvs files, might have one duplicate acronym with equal itemvalue, and one duplicate acronym with unequal itemvalue:
-        Kb,Kilobit,https://en.wikipedia.org/wiki/Kilobit
-        Kb,Kilobit,https://en.wikipedia.org/wiki/Kilobit
-        KB,Kilobyte,https://en.wikipedia.org/wiki/Kilobyte
-        KB,Knowledge Base,https://en.wikipedia.org/wiki/Knowledge_base
+        Kb,Kilobit,https://en.wikipedia.org/wiki/Kilobit,false
+        Kb,Kilobit,https://en.wikipedia.org/wiki/Kilobit,false
+        KB,Kilobyte,https://en.wikipedia.org/wiki/Kilobyte,false
+        KB,Knowledge Base,https://en.wikipedia.org/wiki/Knowledge_base,true
 
     These are loaded from the cvs files as a raw list of four dictionaries:
     [
-        {'itemkey': 'Kb', 'itemvalue': 'Kilobit', 'itemlink': 'https://en.wikipedia.org/wiki/Kilobit'},
-        {'itemkey': 'Kb', 'itemvalue': 'Kilobit', 'itemlink': 'https://en.wikipedia.org/wiki/Kilobit'},
-        {'itemkey': 'KB', 'itemvalue': 'Kilobyte', 'itemlink': 'https://en.wikipedia.org/wiki/Kilobyte'},
-        {'itemkey': 'KB', 'itemvalue': 'Knowledge Base', 'itemlink': 'https://en.wikipedia.org/wiki/Knowledge_base'}
+        {'itemkey': 'Kb', 'itemvalue': 'Kilobit', 'itemlink': 'https://en.wikipedia.org/wiki/Kilobit', 'strict': 'false'},
+        {'itemkey': 'Kb', 'itemvalue': 'Kilobit', 'itemlink': 'https://en.wikipedia.org/wiki/Kilobit', 'strict': 'false'},
+        {'itemkey': 'KB', 'itemvalue': 'Kilobyte', 'itemlink': 'https://en.wikipedia.org/wiki/Kilobyte', 'strict': 'false'},
+        {'itemkey': 'KB', 'itemvalue': 'Knowledge Base', 'itemlink': 'https://en.wikipedia.org/wiki/Knowledge_base', 'strict': 'true'}
     ]
 
     They are then converted to two dictionaries in the final list in memory:
@@ -43,6 +43,8 @@ import platform
         {'itemkey': 'Kb', 'itemvalues': ['Kilobit'], 'itemlinks': ['https://en.wikipedia.org/wiki/Kilobit]'},
         {'itemkey': 'KB', 'itemvalues': ['Kilobyte', 'Knowledge Base'], 'itemlinks': ['https://en.wikipedia.org/wiki/Kilobyte', 'https://en.wikipedia.org/wiki/Knowledge_base']}
     ] 
+
+    The 'strict' propery, if 'true', filters out acronyms that are not in the official CompTIA Exam Objectives, but might be found, for example, in Professor Messer videos. Filtering happens after all cvs files are loaded, but before combining duplicate acronyms. So in the above example, strict filtering is disabled.
 '''
 
 
@@ -51,10 +53,11 @@ class AcronymTester(tk.Tk):
     INCORRECT = False
     UNTESTED = None
 
-    ITEM_KEY = 'itemkey'
+    ITEM_KEY = 'itemkey'  # the acronym
     # for raw loaded items before conversion
-    ITEM_VALUE = 'itemvalue'
-    ITEM_LINK = 'itemlink'
+    ITEM_VALUE = 'itemvalue'  # the text description
+    ITEM_LINK = 'itemlink'  # Wikipedia link
+    ITEM_STRICT = 'strict'  # filter out non-CompTIA acronyms
     # for converted items ready to use
     ITEM_VALUES = 'itemvalues'
     ITEM_LINKS = 'itemlinks'
@@ -77,6 +80,7 @@ class AcronymTester(tk.Tk):
         self.current_item_index = -1
         self.current_item = None
         self.manual_entry_mode_enabled = False
+        self.strict_mode = False
 
         # Keep a list of None/0/1 to note untried/incorrect/correct for each item.
         # The results list is the same length as the items list.
@@ -169,6 +173,15 @@ class AcronymTester(tk.Tk):
         key_sorted = sorted(
             value_sorted, key=lambda item: item[self.ITEM_KEY].lower())
         return key_sorted
+
+    def strict_mode_filter(self, items):
+        if self.strict_mode:
+            filtered_items = list(
+                filter(lambda item: item[self.ITEM_STRICT] == 'true', items))
+        else:
+            filtered_items = items
+
+        return filtered_items
 
     def process_duplicate_acronyms(self, sorted_raw_items):
         '''
@@ -346,7 +359,8 @@ class AcronymTester(tk.Tk):
 
     def start_test(self):
         sorted_raw_items = self.load_and_sort(self.current_cvs_files)
-        self.all_items = self.process_duplicate_acronyms(sorted_raw_items)
+        filtered_raw_items = self.strict_mode_filter(sorted_raw_items)
+        self.all_items = self.process_duplicate_acronyms(filtered_raw_items)
         random.shuffle(self.all_items)
         self.update_length_menu()
         self.filter_items_and_show_first()
@@ -439,6 +453,10 @@ class AcronymTester(tk.Tk):
             self.current_cvs_files.remove(file_name)
         self.start_test()
 
+    def set_strict_mode(self, use_strict_mode):
+        self.strict_mode = use_strict_mode
+        self.start_test()
+
     def toggle_debug_mode(self):
         self.debug_mode_enabled = not self.debug_mode_enabled
         if self.debug_mode_enabled:
@@ -446,7 +464,9 @@ class AcronymTester(tk.Tk):
                 self,
                 self.ALL_CSV_FILES,
                 self.current_cvs_files,
-                self.enable_csv_file
+                self.enable_csv_file,
+                self.strict_mode,
+                self.set_strict_mode
             )
         else:
             self.debugger.destroy()
